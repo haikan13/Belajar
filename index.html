@@ -1,0 +1,80 @@
+<html>
+
+  
+<head>
+  <title>belajatr code</title>
+  <style>
+   body {
+    background: white  ;
+      color: black;
+      text-align: left;
+    }
+    h1 {
+      color: black;
+    } 
+    
+    button {
+      padding: 10px 20px;
+      font-size: 20px;
+      color: black;
+    }
+    #pesan {
+      font-size: 50px;
+      animation: muncul 1s;
+    }
+    @keyframes muncul{
+      from{
+        transfrom: scale (0);
+        opacity: 0;
+      }
+      to {
+        transform: scale (1);
+        opacity: 1;
+      }
+    } 
+      
+  </style>
+</head>
+
+  
+<body>
+  <h1>bagas suka ilham</h1>
+  <p>a day in my life</p>
+  <h2>ADA SUPRICE DI BAWAH↓</h2>
+  <button onclick="sapa()">CLICK</button>
+  <p id="pesan"></p>
+     <script>
+       let klik = 0;
+       
+      function sapa() {
+        klik++;
+
+        if (klik== 1) {
+          document.getElementById("pesan").innerText = "IWAK";   
+          document.querySelector("button").style.background = "red";
+          document.querySelector("button").style.color = "black";
+          document.getElementById("pesan").style.animation = "none";
+          void document.getElementById("pesan").offsetWidth;
+          document.getElementById("pesan").style.animation = "muncul 0.3s";
+        }
+       if (klik== 2) {
+          document.getElementById("pesan").innerText = "TUUUEEEMMMPEEEEKKKK";   
+          document.querySelector("button").style.background = "red";
+          document.querySelector("button").style.color = "black";
+          document.getElementById("pesan").style.animation = "none";
+          void document.getElementById("pesan").offsetWidth;
+          document.getElementById("pesan").style.animation = "muncul 0.3s";
+        }
+       if (klik== 3) {
+          document.getElementById("pesan").innerText = " ";
+          document.querySelector("button").style.background = "white";
+          document.querySelector("button").style.color = "black";
+          document.getElementById("pesan").style.animation = "none";
+          void document.getElementById("pesan").offsetWidth;
+          document.getElementById("pesan").style.animation = "muncul 0.3s";
+          klik = 0;
+        }
+      }
+     </script>
+</body>
+</html>
