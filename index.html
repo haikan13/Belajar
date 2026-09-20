@@ -1,80 +1,253 @@
-<html>
-
-  
+<!DOCTYPE html>
+<html lang="id">
 <head>
-  <title>belajatr code</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Surprise untuk Cila 💗</title>
+
   <style>
-   body {
-    background: white  ;
-      color: black;
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-family: Arial, sans-serif;
+
+      background: linear-gradient(
+        135deg,
+        #ffd6e7,
+        #ccecff,
+        #ffe4f0
+      );
+
+      overflow: hidden;
+    }
+
+    .container {
       text-align: center;
+      padding: 35px;
+      width: 90%;
+      max-width: 500px;
+
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(12px);
+
+      border: 2px solid rgba(255,255,255,0.6);
+      border-radius: 30px;
+
+      box-shadow: 0 15px 40px rgba(120, 150, 180, 0.25);
     }
+
     h1 {
-      color: black;
-    } 
-    
+      margin: 0;
+      color: #ff72a7;
+      font-size: 42px;
+    }
+
+    .subtitle {
+      color: #6b9fc4;
+      font-size: 18px;
+      margin: 10px 0 25px;
+    }
+
     button {
-      padding: 10px 20px;
-      font-size: 20px;
-      color: black;
+      border: none;
+      padding: 14px 30px;
+
+      font-size: 18px;
+      font-weight: bold;
+
+      color: white;
+
+      background: linear-gradient(
+        135deg,
+        #ff91bb,
+        #7ecfff
+      );
+
+      border-radius: 50px;
+
+      cursor: pointer;
+
+      box-shadow: 0 8px 20px rgba(120, 170, 210, 0.3);
+
+      transition: 0.25s;
     }
-    #pesan {
-      font-size: 50px;
-      animation: muncul 1s;
+
+    button:hover {
+      transform: scale(1.08);
     }
-    @keyframes muncul{
-      from{
-        transfrom: scale (0);
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    /* Area bunga */
+    #flowerArea {
+      height: 150px;
+      margin-top: 20px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .flower {
+      font-size: 200px;
+
+      opacity: 0;
+
+      transform: scale(0) rotate(-100deg);
+
+      animation: bloom 1s ease-out forwards;
+    }
+
+    @keyframes bloom {
+      0% {
         opacity: 0;
+        transform: scale(0) rotate(-30deg);
       }
-      to {
-        transform: scale (1);
+
+      60% {
         opacity: 1;
+        transform: scale(1.2) rotate(10deg);
       }
-    } 
-      
+
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    .message {
+      margin-top: 10px;
+
+      color: #ff6fa5;
+      font-size: 20px;
+      font-weight: bold;
+
+      opacity: 0;
+    }
+
+    .showMessage {
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Hiasan */
+    .heart {
+      position: absolute;
+      font-size: 25px;
+      animation: floating 4s infinite ease-in-out;
+      opacity: 0.7;
+    }
+
+    .heart:nth-child(1) {
+      top: 10%;
+      left: 10%;
+    }
+
+    .heart:nth-child(2) {
+      top: 20%;
+      right: 12%;
+      animation-delay: 1s;
+    }
+
+    .heart:nth-child(3) {
+      bottom: 15%;
+      left: 15%;
+      animation-delay: 2s;
+    }
+
+    .heart:nth-child(4) {
+      bottom: 10%;
+      right: 15%;
+      animation-delay: 1.5s;
+    }
+
+    @keyframes floating {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
+    }
   </style>
 </head>
 
-  
 <body>
-  <h1>bagas suka ilham</h1>
-  <p>a day in my life</p>
-  <h2>ADA SUPRICE DI BAWAH↓</h2>
-  <button onclick="sapa()">CLICK</button>
-  <p id="pesan"></p>
-     <script>
-       let klik = 0;
-       
-      function sapa() {
-        klik++;
 
-        if (klik== 1) {
-          document.getElementById("pesan").innerText = "IWAK";   
-          document.querySelector("button").style.background = "red";
-          document.querySelector("button").style.color = "black";
-          document.getElementById("pesan").style.animation = "none";
-          void document.getElementById("pesan").offsetWidth;
-          document.getElementById("pesan").style.animation = "muncul 0.3s";
-        }
-       if (klik== 2) {
-          document.getElementById("pesan").innerText = "TUUUEEEMMMPEEEEKKKK";   
-          document.querySelector("button").style.background = "red";
-          document.querySelector("button").style.color = "black";
-          document.getElementById("pesan").style.animation = "none";
-          void document.getElementById("pesan").offsetWidth;
-          document.getElementById("pesan").style.animation = "muncul 0.3s";
-        }
-       if (klik== 3) {
-          document.getElementById("pesan").innerText = " ";
-          document.querySelector("button").style.background = "white";
-          document.querySelector("button").style.color = "black";
-          document.getElementById("pesan").style.animation = "none";
-          void document.getElementById("pesan").offsetWidth;
-          document.getElementById("pesan").style.animation = "muncul 0.3s";
-          klik = 0;
-        }
-      }
-     </script>
+  <!-- Hiasan -->
+  <div class="heart">💗</div>
+  <div class="heart">🩵</div>
+  <div class="heart">💗</div>
+  <div class="heart">🩵</div>
+
+  <div class="container">
+
+    <h1>Untuk Cila 💗</h1>
+
+    <div class="subtitle">
+      Ada Something... :0
+    </div>
+
+    <button onclick="surprise()">
+      Tekan Aku 🌸
+    </button>
+
+    <div id="flowerArea"></div>
+
+    <div id="message" class="message">
+      🌸 I looopeeeee youuuu💗
+    </div>
+
+  </div>
+
+  <script>
+    function surprise() {
+
+      const flowerArea = document.getElementById("flowerArea");
+      const message = document.getElementById("message");
+
+      // Hapus bunga sebelumnya
+      flowerArea.innerHTML = "";
+
+      // Buat bunga
+      const flower = document.createElement("div");
+
+      flower.className = "flower";
+      flower.innerHTML = "🌸";
+
+      flowerArea.appendChild(flower);
+
+      // Tampilkan pesan
+      message.classList.remove("showMessage");
+
+      setTimeout(() => {
+        message.classList.add("showMessage");
+      }, 700);
+    }
+  </script>
+
 </body>
 </html>
