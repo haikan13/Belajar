@@ -1,253 +1,1089 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <title>Surprise untuk Cila 💗</title>
+<title>N A K ! Area</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<link
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap"
+  rel="stylesheet">
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+<style>
 
-      font-family: Arial, sans-serif;
+*{
+  box-sizing:border-box;
+}
 
-      background: linear-gradient(
-        135deg,
-        #ffd6e7,
-        #ccecff,
-        #ffe4f0
-      );
+html{
+  scroll-behavior:smooth;
+}
 
-      overflow: hidden;
-    }
+body{
+  margin:0;
+  min-height:100vh;
 
-    .container {
-      text-align: center;
-      padding: 35px;
-      width: 90%;
-      max-width: 500px;
+  font-family:Poppins,sans-serif;
+  color:#111;
 
-      background: rgba(255, 255, 255, 0.45);
-      backdrop-filter: blur(12px);
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      #fff 0%,
+      #eee 35%,
+      #d8d8d8 70%,
+      #bdbdbd 100%
+    );
 
-      border: 2px solid rgba(255,255,255,0.6);
-      border-radius: 30px;
+  overflow-x:hidden;
+}
 
-      box-shadow: 0 15px 40px rgba(120, 150, 180, 0.25);
-    }
 
-    h1 {
-      margin: 0;
-      color: #ff72a7;
-      font-size: 42px;
-    }
+/* =========================
+   GRID
+========================= */
 
-    .subtitle {
-      color: #6b9fc4;
-      font-size: 18px;
-      margin: 10px 0 25px;
-    }
+body::before{
+  content:"";
 
-    button {
-      border: none;
-      padding: 14px 30px;
+  position:fixed;
+  inset:0;
 
-      font-size: 18px;
-      font-weight: bold;
+  pointer-events:none;
+  z-index:0;
 
-      color: white;
+  opacity:.14;
 
-      background: linear-gradient(
-        135deg,
-        #ff91bb,
-        #7ecfff
-      );
+  background-image:
+    linear-gradient(
+      rgba(0,0,0,.1) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.1) 1px,
+      transparent 1px
+    );
 
-      border-radius: 50px;
+  background-size:45px 45px;
+}
 
-      cursor: pointer;
 
-      box-shadow: 0 8px 20px rgba(120, 170, 210, 0.3);
+/* =========================
+   BLOOM
+========================= */
 
-      transition: 0.25s;
-    }
+.bloom-container{
+  position:fixed;
+  inset:0;
 
-    button:hover {
-      transform: scale(1.08);
-    }
+  overflow:hidden;
+  pointer-events:none;
 
-    button:active {
-      transform: scale(0.95);
-    }
+  z-index:0;
+}
 
-    /* Area bunga */
-    #flowerArea {
-      height: 150px;
-      margin-top: 20px;
+.bloom{
+  position:absolute;
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+  width:var(--size);
+  height:var(--size);
 
-    .flower {
-      font-size: 200px;
+  border-radius:50%;
 
-      opacity: 0;
+  background:#fff;
 
-      transform: scale(0) rotate(-100deg);
+  filter:blur(25px);
+  opacity:.12;
 
-      animation: bloom 1s ease-out forwards;
-    }
+  animation:
+    float var(--duration)
+    ease-in-out infinite alternate;
 
-    @keyframes bloom {
-      0% {
-        opacity: 0;
-        transform: scale(0) rotate(-30deg);
-      }
+  will-change:transform;
+}
 
-      60% {
-        opacity: 1;
-        transform: scale(1.2) rotate(10deg);
-      }
+@keyframes float{
 
-      100% {
-        opacity: 1;
-        transform: scale(1) rotate(0deg);
-      }
-    }
+  from{
+    transform:
+      translate3d(0,0,0)
+      scale(.8);
+  }
 
-    .message {
-      margin-top: 10px;
+  to{
+    transform:
+      translate3d(var(--x),var(--y),0)
+      scale(1.1);
+  }
 
-      color: #ff6fa5;
-      font-size: 20px;
-      font-weight: bold;
+}
 
-      opacity: 0;
-    }
 
-    .showMessage {
-      animation: fadeIn 1s ease forwards;
-    }
+/* =========================
+   CONTENT
+========================= */
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
+header,
+main,
+footer{
+  position:relative;
+  z-index:1;
+}
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
 
-    /* Hiasan */
-    .heart {
-      position: absolute;
-      font-size: 25px;
-      animation: floating 4s infinite ease-in-out;
-      opacity: 0.7;
-    }
+/* =========================
+   INTRO
+========================= */
 
-    .heart:nth-child(1) {
-      top: 10%;
-      left: 10%;
-    }
+h1,
+.subtitle,
+.line,
+.card:not(.social-card),
+footer{
+  opacity:0;
 
-    .heart:nth-child(2) {
-      top: 20%;
-      right: 12%;
-      animation-delay: 1s;
-    }
+  animation:
+    fadeUp .7s ease forwards;
+}
 
-    .heart:nth-child(3) {
-      bottom: 15%;
-      left: 15%;
-      animation-delay: 2s;
-    }
+@keyframes fadeUp{
 
-    .heart:nth-child(4) {
-      bottom: 10%;
-      right: 15%;
-      animation-delay: 1.5s;
-    }
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
 
-    @keyframes floating {
-      0%, 100% {
-        transform: translateY(0);
-      }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 
-      50% {
-        transform: translateY(-20px);
-      }
-    }
-  </style>
+}
+
+h1{
+  animation-delay:.1s;
+}
+
+.subtitle{
+  animation-delay:.25s;
+}
+
+.line{
+  animation-delay:.4s;
+}
+
+.card:nth-child(1){
+  animation-delay:.55s;
+}
+
+.card:nth-child(3){
+  animation-delay:.7s;
+}
+
+.card:nth-child(4){
+  animation-delay:.85s;
+}
+
+footer{
+  animation-delay:1s;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+  padding:65px 20px 25px;
+  text-align:center;
+}
+
+h1{
+  margin:0;
+
+  font-size:36px;
+  font-weight:800;
+
+  letter-spacing:2px;
+
+  text-shadow:
+    2px 2px 0 #fff,
+    4px 4px 0 rgba(0,0,0,.15);
+}
+
+.subtitle{
+  margin-top:8px;
+
+  color:#555;
+
+  font-size:12px;
+  letter-spacing:4px;
+}
+
+.line{
+  width:80%;
+  max-width:600px;
+
+  height:1px;
+
+  margin:25px auto;
+
+  background:#111;
+}
+
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container{
+  width:90%;
+  max-width:900px;
+
+  margin:50px auto 0;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+  position:relative;
+
+  padding:26px;
+  margin-bottom:24px;
+
+  background:rgba(255,255,255,.72);
+
+  border:1px solid rgba(0,0,0,.15);
+
+  border-radius:18px;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.1);
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+
+  box-shadow:
+    0 15px 30px rgba(0,0,0,.15);
+}
+
+.card h2{
+  margin:0 0 10px;
+
+  font-size:20px;
+}
+
+.card p{
+  margin:0 0 20px;
+
+  color:#444;
+
+  font-size:14px;
+  line-height:1.7;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.btn{
+  display:inline-block;
+
+  padding:11px 24px;
+
+  color:#fff;
+  background:#111;
+
+  border:1px solid #111;
+  border-radius:10px;
+
+  text-decoration:none;
+
+  box-shadow:0 5px 0 #777;
+
+  transition:
+    transform .15s ease,
+    box-shadow .15s ease,
+    background .15s ease;
+}
+
+.btn:hover{
+  background:#333;
+
+  transform:translateY(-3px);
+
+  box-shadow:0 8px 0 #777;
+}
+
+.btn:active{
+  transform:translateY(3px);
+
+  box-shadow:0 2px 0 #777;
+}
+
+
+/* =========================
+   SOCIAL CARD
+========================= */
+
+.social-card{
+  max-height:0;
+
+  opacity:0;
+
+  overflow:hidden;
+
+  margin-bottom:0;
+
+  padding-top:0;
+  padding-bottom:0;
+
+  border-color:transparent;
+
+  transform:translateY(-15px);
+
+  pointer-events:none;
+
+  transition:
+    max-height .4s ease,
+    opacity .3s ease,
+    transform .3s ease,
+    margin-bottom .4s ease,
+    padding .4s ease;
+}
+
+.social-card.show{
+  max-height:500px;
+
+  opacity:1;
+
+  margin-bottom:24px;
+
+  padding-top:26px;
+  padding-bottom:26px;
+
+  border-color:rgba(0,0,0,.15);
+
+  transform:translateY(0);
+
+  pointer-events:auto;
+}
+
+
+/* =========================
+   SOCIAL GRID
+========================= */
+
+.social-buttons{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:12px;
+}
+
+.social-btn{
+  width:100%;
+  text-align:center;
+}
+
+
+/* =========================
+   AM UPDATE LIST
+========================= */
+
+.update-list{
+  max-height:0;
+
+  opacity:0;
+
+  overflow:hidden;
+
+  transform:translateY(-12px);
+
+  margin-top:0;
+  margin-bottom:0;
+
+  pointer-events:none;
+
+  transition:
+    max-height .45s ease,
+    opacity .3s ease,
+    transform .35s ease,
+    margin .45s ease;
+}
+
+.update-list.show{
+  max-height:600px;
+
+  opacity:1;
+
+  transform:translateY(0);
+
+  margin-top:20px;
+  margin-bottom:24px;
+
+  pointer-events:auto;
+}
+
+
+/* =========================
+   UPDATE ITEM
+========================= */
+
+.update-item{
+  position:relative;
+
+  padding:24px;
+
+  background:
+    rgba(255,255,255,.72);
+
+  border:
+    1px solid
+    rgba(0,0,0,.15);
+
+  border-radius:18px;
+
+  box-shadow:
+    0 8px 25px
+    rgba(0,0,0,.1);
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.update-item:hover{
+  transform:translateY(-4px);
+
+  box-shadow:
+    0 15px 30px
+    rgba(0,0,0,.15);
+}
+
+.update-item h3{
+  margin:0 0 10px;
+
+  font-size:19px;
+
+  letter-spacing:.5px;
+}
+
+.update-item p{
+  margin:0 0 20px;
+
+  color:#444;
+
+  font-size:13px;
+
+  line-height:1.7;
+}
+
+.download-btn{
+  display:inline-block;
+
+  padding:10px 22px;
+
+  color:#fff;
+
+  background:#111;
+
+  border:1px solid #111;
+
+  border-radius:10px;
+
+  text-decoration:none;
+
+  box-shadow:0 5px 0 #777;
+
+  transition:
+    transform .15s ease,
+    box-shadow .15s ease,
+    background .15s ease;
+}
+
+.download-btn:hover{
+  background:#333;
+
+  transform:translateY(-3px);
+
+  box-shadow:0 8px 0 #777;
+}
+
+.download-btn:active{
+  transform:translateY(3px);
+
+  box-shadow:0 2px 0 #777;
+}
+
+
+/* =========================
+   UPDATE GRIT
+========================= */
+
+.update-grit{
+  position:fixed;
+  inset:0;
+
+  z-index:9999;
+
+  pointer-events:none;
+
+  background:
+    radial-gradient(
+      rgba(255,255,255,.2) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      rgba(0,0,0,.15) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    4px 4px,
+    7px 7px;
+
+  mix-blend-mode:overlay;
+
+  animation:
+    gritFlash .45s ease-out forwards;
+}
+
+@keyframes gritFlash{
+
+  0%{
+    opacity:0;
+    transform:scale(1.03);
+  }
+
+  25%{
+    opacity:.7;
+  }
+
+  100%{
+    opacity:0;
+    transform:scale(1);
+  }
+
+}
+
+
+/* =========================
+   BLOOM SPACE
+========================= */
+
+.bloom-space{
+  height:650px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+}
+
+.bloom-text{
+  font-size:12px;
+
+  letter-spacing:5px;
+
+  color:#222;
+
+  opacity:.5;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  padding:50px 20px;
+
+  text-align:center;
+
+  color:#555;
+
+  font-size:12px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+  header{
+    padding-top:50px;
+  }
+
+  h1{
+    font-size:27px;
+    line-height:1.3;
+  }
+
+  .subtitle{
+    font-size:9px;
+    letter-spacing:3px;
+  }
+
+  .card{
+    padding:22px;
+  }
+
+  .social-buttons{
+    grid-template-columns:1fr;
+  }
+
+  .update-item{
+    padding:22px;
+  }
+
+  .bloom-space{
+    height:550px;
+  }
+
+}
+
+
+/* =========================
+   REDUCE MOTION
+========================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+  }
+
+}
+
+</style>
 </head>
+
 
 <body>
 
-  <!-- Hiasan -->
-  <div class="heart">💗</div>
-  <div class="heart">🩵</div>
-  <div class="heart">💗</div>
-  <div class="heart">🩵</div>
 
-  <div class="container">
+<!-- BLOOM -->
 
-    <h1>Untuk Cila 💗</h1>
+<div
+  class="bloom-container"
+  id="bloomContainer">
+</div>
 
-    <div class="subtitle">
-      Ada Something... :0
+
+<!-- HEADER -->
+
+<header>
+
+  <h1>
+    WELCOME N A K ! AREA
+  </h1>
+
+  <div class="subtitle">
+    DIGITAL • CREATIVE • GAMING
+  </div>
+
+  <div class="line"></div>
+
+</header>
+
+
+<!-- CONTENT -->
+
+<main class="container">
+
+
+  <!-- ABOUT -->
+
+  <section class="card">
+
+    <h2>
+      ⚡ ABOUT ME
+    </h2>
+
+    <p>
+      Welcome to my personal area.
+      Tempat untuk menyimpan project,
+      animasi, coding, gaming, dan berbagai
+      karya saya.
+    </p>
+
+    <a
+      href="#social-media"
+      class="btn"
+      id="exploreBtn">
+
+      EXPLORE
+
+    </a>
+
+  </section>
+
+
+  <!-- SOCIAL -->
+
+  <section
+    class="card social-card"
+    id="social-media">
+
+    <h2>
+      🌐 SOCIAL MEDIA
+    </h2>
+
+    <p>
+      Temukan saya di berbagai platform
+      dan bergabung bersama komunitas saya.
+    </p>
+
+    <div class="social-buttons">
+
+      <a
+        href="https://www.tiktok.com/@naki_xd"
+        class="btn social-btn"
+        target="_blank"
+        rel="noopener">
+
+        ᕷ TIKTOK
+
+      </a>
+
+
+      <a
+        href="#"
+        class="btn social-btn">
+
+        ▶ YOUTUBE
+
+      </a>
+
+
+      <a
+        href="https://whatsapp.com/channel/0029VbCq3C8Bvvsa1IQswr34"
+        class="btn social-btn"
+        target="_blank"
+        rel="noopener">
+
+        📱 WHATSAPP
+
+      </a>
+
     </div>
 
-    <button onclick="surprise()">
-      Tekan Aku 🌸
-    </button>
+  </section>
 
-    <div id="flowerArea"></div>
 
-    <div id="message" class="message">
-      🌸 I looopeeeee youuuu💗
+  <!-- AM UPDATE -->
+
+  <section class="card">
+
+    <h2>
+      🎬 SHORTCUT AM UPDATE
+    </h2>
+
+    <p>
+      Sebuah panel shortcut interaktif
+      yang dirancang untuk mempermudah
+      pengguna dalam mengakses berbagai
+      informasi terbaru terkait pembaruan
+      Alight Motion secara cepat dan praktis.
+    </p>
+
+    <a
+      href="#"
+      class="btn update-button"
+      id="updateBtn">
+
+      AKSES UPDATE
+
+    </a>
+
+  </section>
+
+
+  <!-- UPDATE GRID -->
+
+  <div
+    class="update-list"
+    id="updateList">
+
+    <article class="update-item">
+
+      <h3>
+        AMZP_ORI_14SEP
+      </h3>
+
+      <p>
+        alight-motion mod ini berasal dari satriyaid
+      </p>
+
+      <a
+        href="https://drive.google.com/file/d/1H1kxtXZSVmkSPodGvExXWPhF02V4h1ul/view?usp=drivesdk"
+        class="download-btn"
+        target="_blank"
+        rel="noopener noreferrer">
+
+        ⬇ DOWNLOAD
+
+      </a>
+
+    </article>
+
+  </div>
+
+
+  <!-- GAMING -->
+
+  <section class="card">
+
+    <h2>
+      🎮 GAMING AREA
+    </h2>
+
+    <p>
+      Minecraft, Mobile Legends
+      dan berbagai project gaming
+      lainnya.
+    </p>
+
+    <a
+      href="#"
+      class="btn">
+
+      ENTER
+
+    </a>
+
+  </section>
+
+
+  <!-- SPACE -->
+
+  <div class="bloom-space">
+
+    <div class="bloom-text">
+      KEEP SCROLLING
     </div>
 
   </div>
 
-  <script>
-    function surprise() {
+</main>
 
-      const flowerArea = document.getElementById("flowerArea");
-      const message = document.getElementById("message");
 
-      // Hapus bunga sebelumnya
-      flowerArea.innerHTML = "";
+<footer>
 
-      // Buat bunga
-      const flower = document.createElement("div");
+  © 2026 N A K ! Area
 
-      flower.className = "flower";
-      flower.innerHTML = "🌸";
+</footer>
 
-      flowerArea.appendChild(flower);
 
-      // Tampilkan pesan
-      message.classList.remove("showMessage");
+<script>
 
-      setTimeout(() => {
-        message.classList.add("showMessage");
-      }, 700);
-    }
-  </script>
+/* =========================
+   BLOOM
+========================= */
+
+const bloomContainer =
+  document.getElementById("bloomContainer");
+
+for(let i = 0; i < 8; i++){
+
+  const bloom =
+    document.createElement("div");
+
+  bloom.className = "bloom";
+
+  bloom.style.left =
+    Math.random() * 100 + "%";
+
+  bloom.style.top =
+    Math.random() * 100 + "%";
+
+  bloom.style.setProperty(
+    "--size",
+    60 + Math.random() * 100 + "px"
+  );
+
+  bloom.style.setProperty(
+    "--x",
+    (Math.random() - .5) * 250 + "px"
+  );
+
+  bloom.style.setProperty(
+    "--y",
+    (Math.random() - .5) * 250 + "px"
+  );
+
+  bloom.style.setProperty(
+    "--duration",
+    15 + Math.random() * 10 + "s"
+  );
+
+  bloomContainer.appendChild(bloom);
+}
+
+
+/* =========================
+   SOCIAL
+========================= */
+
+const exploreBtn =
+  document.getElementById("exploreBtn");
+
+const socialMedia =
+  document.getElementById("social-media");
+
+let socialOpen = false;
+
+exploreBtn.addEventListener("click", event => {
+
+  event.preventDefault();
+
+  socialOpen = !socialOpen;
+
+  if(socialOpen){
+
+    socialMedia.classList.add("show");
+
+    exploreBtn.textContent = "CLOSE";
+
+    setTimeout(() => {
+
+      socialMedia.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+    },100);
+
+  }else{
+
+    socialMedia.classList.remove("show");
+
+    exploreBtn.textContent = "EXPLORE";
+
+    setTimeout(() => {
+
+      document
+        .querySelector(".card")
+        .scrollIntoView({
+          behavior:"smooth",
+          block:"center"
+        });
+
+    },100);
+
+  }
+
+});
+
+
+/* =========================
+   AM UPDATE
+========================= */
+
+const updateBtn =
+  document.getElementById("updateBtn");
+
+const updateList =
+  document.getElementById("updateList");
+
+let updateOpen = false;
+
+updateBtn.addEventListener("click", event => {
+
+  event.preventDefault();
+
+  updateOpen = !updateOpen;
+
+
+  /* OPEN */
+
+  if(updateOpen){
+
+    updateList.classList.add("show");
+
+    updateBtn.textContent = "CLOSE";
+
+
+    /* GRIT */
+
+    const grit =
+      document.createElement("div");
+
+    grit.className = "update-grit";
+
+    document.body.appendChild(grit);
+
+    setTimeout(() => {
+      grit.remove();
+    },450);
+
+
+    /* SCROLL KE GRID */
+
+    setTimeout(() => {
+
+      updateList.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+    },120);
+
+  }
+
+
+  /* CLOSE */
+
+  else{
+
+    updateList.classList.remove("show");
+
+    updateBtn.textContent =
+      "AKSES UPDATE";
+
+
+    /* KEMBALI KE SHORTCUT AM */
+
+    setTimeout(() => {
+
+      document
+        .querySelector(".update-button")
+        .parentElement
+        .scrollIntoView({
+          behavior:"smooth",
+          block:"center"
+        });
+
+    },100);
+
+  }
+
+});
+
+</script>
 
 </body>
 </html>
