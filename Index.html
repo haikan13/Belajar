@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Rekap Pemasukan</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #f3faff;
+      color: #183247;
+    }
+
+    .app {
+      max-width: 500px;
+      margin: auto;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 26px;
+      color: #168dcc;
+    }
+
+    /* =========================
+       TANGGAL
+    ========================= */
+
+    .tanggal {
+      margin-top: 6px;
+    }
+
+    .tanggal-btn {
+      width: 100%;
+      margin-top: 8px;
+      padding: 10px 12px;
+      border: 1px solid #c9e8f6;
+      border-radius: 10px;
+      background: white;
+      color: #168dcc;
+      text-align: left;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* =========================
+       CARD
+    ========================= */
+
+    .card {
+      background: white;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 18px;
+      border: 1px solid #dceff8;
+      box-shadow: 0 5px 18px rgba(55, 170, 220, 0.1);
+    }
+
+    .judul {
+      margin-bottom: 18px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #168dcc;
+    }
+
+    /* =========================
+       ITEM
+    ========================= */
+
+    .item {
+      display: flex;
+      align-items: center;
+      margin: 12px 0;
+    }
+
+    .kode {
+      width: 45px;
+      font-weight: bold;
+      color: #36566a;
+    }
+
+    .harga {
+      flex: 1;
+      margin-left: 10px;
+      color: #8aa0ad;
+      font-size: 13px;
+    }
+
+    .item input {
+      width: 90px;
+      padding: 10px;
+      border: 1px solid #c9e8f6;
+      background: #f8fcff;
+      color: #183247;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .item input:focus {
+      border-color: #5fc4ed;
+      box-shadow: 0 0 0 3px rgba(95, 196, 237, 0.15);
+    }
+
+    /* =========================
+       TOTAL
+    ========================= */
+
+    .total {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 22px;
+      padding-top: 15px;
+      border-top: 1px solid #dceff8;
+      font-weight: bold;
+      font-size: 17px;
+      color: #168dcc;
+    }
+
+    .total-harga {
+      font-size: 21px;
+    }
+
+    .cash-auto {
+      background: #f0faff !important;
+      color: #168dcc !important;
+      font-weight: bold;
+    }
+
+    .info {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #7290a3;
+    }
+
+    /* =========================
+       BUTTON
+    ========================= */
+
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .save {
+      background: #168dcc;
+      color: white;
+      box-shadow: 0 5px 12px rgba(22, 141, 204, 0.25);
+    }
+
+    .reset {
+      background: #e6f6fc;
+      color: #168dcc;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    /* =========================
+       POPUP
+    ========================= */
+
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 9999;
+    }
+
+    .popup-overlay.show {
+      display: flex;
+    }
+
+    .popup {
+      width: 100%;
+      max-width: 360px;
+      background: white;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+      animation: popupMasuk 0.2s ease;
+    }
+
+    @keyframes popupMasuk {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .popup h3 {
+      margin: 0 0 10px;
+      color: #168dcc;
+      font-size: 20px;
+    }
+
+    .popup p {
+      margin: 6px 0;
+      color: #526b78;
+    }
+
+    .popup-info {
+      font-size: 13px;
+      color: #8aa0ad !important;
+    }
+
+    .popup input {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0 18px;
+      border: 1px solid #c9e8f6;
+      border-radius: 10px;
+      font-size: 16px;
+      background: #f8fcff;
+    }
+
+    .popup-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .popup-buttons button {
+      margin: 0;
+      flex: 1;
+      padding: 12px;
+    }
+
+    .popup-batal {
+      background: #e6f6fc;
+      color: #168dcc;
+    }
+
+    .popup-oke {
+      background: #168dcc;
+      color: white;
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <div class="app">
+
+    <h1>Rekap Pemasukan</h1>
+
+    <!-- TANGGAL -->
+
+    <div class="tanggal">
+
+      <button
+        type="button"
+        class="tanggal-btn"
+        id="btnTanggal">
+
+        <span id="tanggal">
+          Memuat tanggal...
+        </span>
+
+      </button>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- BARANG -->
+    <!-- ========================= -->
+
+    <div class="card">
+
+      <div class="judul">
+        Barang
+      </div>
+
+
+      <div class="item">
+        <span class="kode">LT</span>
+        <span class="harga">Rp8.000</span>
+        <input
+          type="number"
+          min="0"
+          class="barang"
+          data-harga="8000">
+      </div>
+
+
+      <div class="item">
+        <span class="kode">TT</span>
+        <span class="harga">Rp10.000</span>
+        <input
+          type="number"
+          min="0"
+          class="barang"
+          data-harga="10000">
+      </div>
+
+
+      <div class="item">
+        <span class="kode">BS</span>
+        <span class="harga">Rp10.000</span>
+        <input
+          type="number"
+          min="0"
+          class="barang"
+          data-harga="10000">
+      </div>
+
+
+      <div class="item">
+        <span class="kode">SM</span>
+        <span class="harga">Rp12.000</span>
+        <input
+          type="number"
+          min="0"
+          class="barang"
+          data-harga="12000">
+      </div>
+
+
+      <div class="item">
+        <span class="kode">KS</span>
+        <span class="harga">Rp10.000</span>
+        <input
+          type="number"
+          min="0"
+          class="barang"
+          data-harga="10000">
+      </div>
+
+
+      <div class="item">
+        <span class="kode">KA</span>
+        <span class="harga">Rp12.000</span>
+        <input
+          type="number"
+          min="0"
+          class="barang"
+          data-harga="12000">
+      </div>
+
+
+      <div class="item">
+        <span class="kode">KC</span>
+        <span class="harga">Rp12.000</span>
+        <input
+          type="number"
+          min="0"
+          class="barang"
+          data-harga="12000">
+      </div>
+
+
+      <div class="item">
+        <span class="kode">KP</span>
+        <span class="harga">Rp13.000</span>
+        <input
+          type="number"
+          min="0"
+          class="barang"
+          data-harga="13000">
+      </div>
+
+
+      <div class="item">
+        <span class="kode">SC</span>
+        <span class="harga">Rp14.000</span>
+        <input
+          type="number"
+          min="0"
+          class="barang"
+          data-harga="14000">
+      </div>
+
+
+      <div class="total">
+        <span>TOTAL BARANG</span>
+        <span id="totalBarang">0</span>
+      </div>
+
+
+      <div class="total">
+        <span>TOTAL PEMBAYARAN</span>
+
+        <span
+          class="total-harga"
+          id="totalPembayaran">
+
+          Rp0
+
+        </span>
+      </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- PEMBAYARAN -->
+    <!-- ========================= -->
+
+    <div class="card">
+
+      <div class="judul">
+        Pembayaran
+      </div>
+
+
+      <div class="item">
+
+        <span class="kode">
+          QRIS
+        </span>
+
+        <span class="harga"></span>
+
+        <input
+          type="number"
+          min="0"
+          id="qris"
+          placeholder="0">
+
+      </div>
+
+
+      <div class="item">
+
+        <span class="kode">
+          CASH
+        </span>
+
+        <span class="harga"></span>
+
+        <input
+          type="text"
+          id="cash"
+          value="Rp0"
+          class="cash-auto"
+          readonly>
+
+      </div>
+
+
+      <div class="info">
+        CASH = Total Pembayaran − QRIS
+      </div>
+
+
+      <div class="total">
+
+        <span>
+          TOTAL
+        </span>
+
+        <span
+          class="total-harga"
+          id="totalPembayaran2">
+
+          Rp0
+
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- BUTTON -->
+    <!-- ========================= -->
+
+    <button
+      type="button"
+      class="save"
+      id="btnSave">
+
+      💾 SAVE
+
+    </button>
+
+
+    <button
+      type="button"
+      class="reset"
+      id="btnReset">
+
+      Reset
+
+    </button>
+
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- POPUP TANGGAL -->
+  <!-- ========================= -->
+
+  <div
+    class="popup-overlay"
+    id="popupTanggal">
+
+    <div class="popup">
+
+      <h3>
+        Pilih Tanggal
+      </h3>
+
+      <input
+        type="date"
+        id="inputTanggal">
+
+      <div class="popup-buttons">
+
+        <button
+          type="button"
+          class="popup-batal"
+          id="batalTanggal">
+
+          Batal
+
+        </button>
+
+        <button
+          type="button"
+          class="popup-oke"
+          id="okeTanggal">
+
+          Oke
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ========================= -->
+  <!-- POPUP RESET -->
+  <!-- ========================= -->
+
+  <div
+    class="popup-overlay"
+    id="popupReset">
+
+    <div class="popup">
+
+      <h3>
+        Reset Data?
+      </h3>
+
+      <p>
+        Apakah yakin ingin mereset?
+      </p>
+
+      <p class="popup-info">
+        Semua data yang sudah diisi akan dihapus.
+      </p>
+
+      <div class="popup-buttons">
+
+        <button
+          type="button"
+          class="popup-batal"
+          id="batalReset">
+
+          Batal
+
+        </button>
+
+        <button
+          type="button"
+          class="popup-oke"
+          id="okeReset">
+
+          Oke
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /* =========================
+       ELEMENT
+    ========================= */
+
+    const tanggalElement =
+      document.getElementById("tanggal");
+
+    const btnTanggal =
+      document.getElementById("btnTanggal");
+
+    const popupTanggal =
+      document.getElementById("popupTanggal");
+
+    const inputTanggal =
+      document.getElementById("inputTanggal");
+
+    const batalTanggal =
+      document.getElementById("batalTanggal");
+
+    const okeTanggal =
+      document.getElementById("okeTanggal");
+
+
+    const popupReset =
+      document.getElementById("popupReset");
+
+    const batalReset =
+      document.getElementById("batalReset");
+
+    const okeReset =
+      document.getElementById("okeReset");
+
+
+    const barang =
+      document.querySelectorAll(".barang");
+
+    const qris =
+      document.getElementById("qris");
+
+    const cash =
+      document.getElementById("cash");
+
+    const totalBarang =
+      document.getElementById("totalBarang");
+
+    const totalPembayaran =
+      document.getElementById("totalPembayaran");
+
+    const totalPembayaran2 =
+      document.getElementById("totalPembayaran2");
+
+    const btnSave =
+      document.getElementById("btnSave");
+
+    const btnReset =
+      document.getElementById("btnReset");
+
+
+    /* =========================
+       TANGGAL
+    ========================= */
+
+    let tanggalDipilih =
+      new Date();
+
+
+    function formatTanggal(tanggal) {
+
+      return tanggal.toLocaleDateString(
+        "id-ID",
+        {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        }
+      );
+
+    }
+
+
+    function formatInputDate(tanggal) {
+
+      const tahun =
+        tanggal.getFullYear();
+
+      const bulan =
+        String(
+          tanggal.getMonth() + 1
+        ).padStart(2, "0");
+
+      const hari =
+        String(
+          tanggal.getDate()
+        ).padStart(2, "0");
+
+      return (
+        tahun +
+        "-" +
+        bulan +
+        "-" +
+        hari
+      );
+
+    }
+
+
+    function tampilkanTanggal() {
+
+      tanggalElement.textContent =
+        formatTanggal(
+          tanggalDipilih
+        );
+
+    }
+
+
+    /* =========================
+       FORMAT RUPIAH
+    ========================= */
+
+    function rupiah(angka) {
+
+      return (
+        "Rp" +
+        angka.toLocaleString("id-ID")
+      );
+
+    }
+
+
+    /* =========================
+       HITUNG
+    ========================= */
+
+    function hitung() {
+
+      let jumlah = 0;
+
+      let total = 0;
+
+
+      barang.forEach(input => {
+
+        const jumlahItem =
+          Number(input.value) || 0;
+
+        const harga =
+          Number(
+            input.dataset.harga
+          );
+
+        jumlah += jumlahItem;
+
+        total +=
+          jumlahItem * harga;
+
+      });
+
+
+      totalBarang.textContent =
+        jumlah;
+
+
+      totalPembayaran.textContent =
+        rupiah(total);
+
+
+      totalPembayaran2.textContent =
+        rupiah(total);
+
+
+      const jumlahQris =
+        Number(qris.value) || 0;
+
+
+      let jumlahCash =
+        total - jumlahQris;
+
+
+      if (jumlahCash < 0) {
+        jumlahCash = 0;
+      }
+
+
+      cash.value =
+        rupiah(jumlahCash);
+
+    }
+
+
+    /* =========================
+       POPUP TANGGAL
+    ========================= */
+
+    btnTanggal.addEventListener(
+      "click",
+      function () {
+
+        inputTanggal.value =
+          formatInputDate(
+            tanggalDipilih
+          );
+
+        popupTanggal.classList.add(
+          "show"
+        );
+
+      }
+    );
+
+
+    batalTanggal.addEventListener(
+      "click",
+      function () {
+
+        popupTanggal.classList.remove(
+          "show"
+        );
+
+      }
+    );
+
+
+    okeTanggal.addEventListener(
+      "click",
+      function () {
+
+        if (!inputTanggal.value) {
+          return;
+        }
+
+
+        tanggalDipilih =
+          new Date(
+            inputTanggal.value +
+            "T00:00:00"
+          );
+
+
+        tampilkanTanggal();
+
+
+        popupTanggal.classList.remove(
+          "show"
+        );
+
+      }
+    );
+
+
+    /* =========================
+       INPUT BARANG
+    ========================= */
+
+    barang.forEach(input => {
+
+      input.addEventListener(
+        "input",
+        hitung
+      );
+
+    });
+
+
+    qris.addEventListener(
+      "input",
+      hitung
+    );
+
+
+    /* =========================
+       SAVE
+    ========================= */
+
+    btnSave.addEventListener(
+      "click",
+      function () {
+
+        const dataBarang = [];
+
+
+        barang.forEach(input => {
+
+          dataBarang.push(
+            Number(input.value) || 0
+          );
+
+        });
+
+
+        const data = {
+
+          barang: dataBarang,
+
+          qris:
+            Number(qris.value) || 0,
+
+          tanggal:
+            formatInputDate(
+              tanggalDipilih
+            )
+
+        };
+
+
+        localStorage.setItem(
+          "dataRekap",
+          JSON.stringify(data)
+        );
+
+
+        alert(
+          "Data berhasil disimpan!"
+        );
+
+      }
+    );
+
+
+    /* =========================
+       LOAD DATA
+    ========================= */
+
+    function loadData() {
+
+      const tersimpan =
+        localStorage.getItem(
+          "dataRekap"
+        );
+
+
+      if (!tersimpan) {
+
+        tampilkanTanggal();
+
+        hitung();
+
+        return;
+
+      }
+
+
+      const data =
+        JSON.parse(tersimpan);
+
+
+      /* BARANG */
+
+      if (data.barang) {
+
+        barang.forEach(
+          (input, index) => {
+
+            input.value =
+              data.barang[index] || 0;
+
+          }
+        );
+
+      }
+
+
+      /* QRIS */
+
+      qris.value =
+        data.qris || 0;
+
+
+      /* TANGGAL */
+
+      if (data.tanggal) {
+
+        tanggalDipilih =
+          new Date(
+            data.tanggal +
+            "T00:00:00"
+          );
+
+      }
+
+
+      tampilkanTanggal();
+
+      hitung();
+
+    }
+
+
+    /* =========================
+       POPUP RESET
+    ========================= */
+
+    btnReset.addEventListener(
+      "click",
+      function () {
+
+        popupReset.classList.add(
+          "show"
+        );
+
+      }
+    );
+
+
+    /* BATAL RESET */
+
+    batalReset.addEventListener(
+      "click",
+      function () {
+
+        popupReset.classList.remove(
+          "show"
+        );
+
+      }
+    );
+
+
+    /* OKE RESET */
+
+    okeReset.addEventListener(
+      "click",
+      function () {
+
+        barang.forEach(input => {
+
+          input.value = 0;
+
+        });
+
+
+        qris.value = 0;
+
+
+        localStorage.removeItem(
+          "dataRekap"
+        );
+
+
+        /* Kembalikan tanggal ke hari ini */
+
+        tanggalDipilih =
+          new Date();
+
+
+        tampilkanTanggal();
+
+
+        hitung();
+
+
+        popupReset.classList.remove(
+          "show"
+        );
+
+      }
+    );
+
+
+    /* =========================
+       MULAI
+    ========================= */
+
+    loadData();
+
+  </script>
+
+</body>
+
+</html>
