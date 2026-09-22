@@ -5,7 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Rekap</title>
+  <title>START KOPI</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
 
   <style>
     * {
@@ -16,573 +21,784 @@
     body {
       margin: 0;
       padding: 15px 15px 100px;
-      background: #ffffff;
-      font-family: Arial, sans-serif;
-      color: #183247;
+      font-family: Poppins, Inter, Arial, sans-serif;
+      background: #f5f8fa;
+      color: #222;
     }
 
     button,
-    input {
+    input,
+    textarea {
       font-family: inherit;
     }
 
-    #menuPage {
-      display: block;
+    /* =========================
+       MENU REKAP
+    ========================= */
+
+    .header-rekap {
+      text-align: center;
+      margin: 10px 0 25px;
     }
 
-    .header {
-      padding: 10px 5px 20px;
-    }
-
-    .header h2 {
+    .header-rekap h1 {
       margin: 0;
-      font-size: 24px;
+      font-size: 25px;
+      font-weight: 800;
       color: #2385aa;
     }
 
-    .header p {
-      margin: 5px 0 0;
-      font-size: 13px;
-      color: #9aaab1;
+    .header-rekap p {
+      margin: 6px 0 0;
+      color: #777;
+      font-size: 14px;
     }
 
     #gridContainer {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
     }
 
-    .grid-card {
-      min-height: 110px;
-      padding: 20px;
-      background: #edf8fc;
-      border-radius: 17px;
-      border-left: 4px solid #d7eff8;
+    .rekap-card {
+      background: white;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, .07);
+      border: 1px solid #edf0f2;
       cursor: pointer;
+      transition: .15s;
       user-select: none;
-      -webkit-user-select: none;
-      transition: 0.15s;
     }
 
-    .grid-card:active {
-      transform: scale(0.98);
+    .rekap-card:active {
+      transform: scale(.97);
     }
 
-    .grid-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: #263238;
-      margin-bottom: 12px;
-      word-break: break-word;
+    .rekap-card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      color: #2385aa;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
-    .grid-date {
-      font-size: 14px;
-      color: #9baab0;
+    .rekap-card p {
+      margin: 4px 0;
+      font-size: 12px;
+      color: #777;
     }
 
-    .kosong {
+    .rekap-card .harga {
+      margin-top: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .empty {
+      grid-column: 1 / -1;
       text-align: center;
-      margin-top: 100px;
-      color: #a5b4ba;
-      font-size: 14px;
+      padding: 50px 20px;
+      color: #999;
+      background: white;
+      border-radius: 18px;
     }
 
-    .btn-tambah {
+    .btn-tambah,
+    .btn-hitung {
       position: fixed;
       right: 20px;
-      bottom: 22px;
       width: 62px;
       height: 62px;
       border: none;
       border-radius: 50%;
-      background: #2385aa;
       color: white;
-      font-size: 38px;
-      font-weight: 300;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 7px 18px rgba(35, 133, 170, 0.25);
       cursor: pointer;
-      z-index: 10;
+      z-index: 50;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, .18);
+      transition: .15s;
     }
 
-    .btn-tambah:active {
-      transform: scale(0.9);
-    }
-
-    .popup-bg {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.28);
-      display: none;
-      align-items: flex-end;
-      justify-content: center;
-      z-index: 100;
-    }
-
-    .popup-bg.show {
-      display: flex;
-    }
-
-    .popup {
-      width: 100%;
-      max-width: 500px;
-      background: white;
-      border-radius: 25px 25px 0 0;
-      padding: 25px 20px 30px;
-      animation: naik 0.25s ease;
-    }
-
-    @keyframes naik {
-      from {
-        transform: translateY(100%);
-      }
-
-      to {
-        transform: translateY(0);
-      }
-    }
-
-    .popup h3 {
-      margin: 0 0 20px;
-      color: #2385aa;
-    }
-
-    .input {
-      width: 100%;
-      padding: 14px;
-      margin-bottom: 12px;
-      border: 1px solid #d5eaf1;
-      border-radius: 12px;
-      outline: none;
-      font-size: 14px;
-      background: #f8fcff;
-    }
-
-    .input:focus {
-      border-color: #5bb6d7;
-    }
-
-    .simpan {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 12px;
+    .btn-tambah {
+      bottom: 20px;
       background: #2385aa;
-      color: white;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
+      font-size: 34px;
     }
 
-    .batal {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      background: transparent;
-      color: #8b9da5;
-      margin-top: 5px;
-      cursor: pointer;
-    }
-
-    .hapus-popup {
-      align-items: center;
-      padding: 20px;
-    }
-
-    .hapus-box {
-      width: 100%;
-      max-width: 360px;
-      background: white;
-      border-radius: 20px;
-      padding: 22px;
-      animation: muncul 0.2s ease;
-    }
-
-    @keyframes muncul {
-      from {
-        opacity: 0;
-        transform: scale(0.9);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .hapus-box h3 {
-      margin: 0 0 8px;
-      color: #2385aa;
-    }
-
-    .hapus-box p {
-      margin: 0 0 20px;
-      color: #718792;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .hapus-buttons {
-      display: flex;
-      gap: 10px;
-    }
-
-    .hapus-buttons button {
-      flex: 1;
-      padding: 13px;
-      border: none;
-      border-radius: 12px;
-      font-weight: bold;
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    .btn-tidak {
-      background: #e6f6fc;
-      color: #2385aa;
-    }
-
-    .btn-iya {
-      background: #2385aa;
-      color: white;
-    }
-
-    #detailPage {
-      display: none;
-      padding-bottom: 30px;
-    }
-
-    .detail-header {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 16px;
-    }
-
-    .back-btn {
-      width: 48px;
-      height: 48px;
-      border: 1px solid #d5eaf1;
-      border-radius: 14px;
-      background: white;
-      color: #2385aa;
-      font-size: 22px;
-      cursor: pointer;
-    }
-
-    .detail-title {
-      margin: 0;
-      font-size: 26px;
-      color: #2385aa;
-      word-break: break-word;
-    }
-
-    .tanggal {
-      margin-top: 6px;
-    }
-
-    .tanggal-btn {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #c9e8f6;
-      border-radius: 10px;
-      background: white;
-      color: #168dcc;
-      text-align: left;
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    .card {
-      background: white;
-      padding: 20px;
-      margin-top: 20px;
-      border-radius: 18px;
-      border: 1px solid #dceff8;
-      box-shadow: 0 5px 18px rgba(55, 170, 220, 0.1);
-    }
-
-    .judul {
-      margin-bottom: 18px;
-      font-size: 18px;
-      font-weight: bold;
-      color: #168dcc;
-    }
-
-    .item {
-      display: flex;
-      align-items: center;
-      margin: 12px 0;
-    }
-
-    .kode {
-      width: 45px;
-      font-weight: bold;
-      color: #36566a;
-    }
-
-    .harga {
-      flex: 1;
-      margin-left: 10px;
-      color: #8aa0ad;
-      font-size: 13px;
-    }
-
-    .item input {
-      width: 90px;
-      padding: 10px;
-      border: 1px solid #c9e8f6;
-      background: #f8fcff;
-      color: #183247;
-      border-radius: 10px;
-      text-align: center;
-      font-size: 16px;
-      outline: none;
-    }
-
-    .item input:focus {
-      border-color: #5fc4ed;
-      box-shadow: 0 0 0 3px rgba(95, 196, 237, 0.15);
-    }
-
-    .total {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 22px;
-      padding-top: 15px;
-      border-top: 1px solid #dceff8;
-      font-weight: bold;
-      font-size: 17px;
-      color: #168dcc;
-    }
-
-    .total-harga {
-      font-size: 21px;
-    }
-
-    .cash-auto {
-      background: #f0faff !important;
-      color: #168dcc !important;
-      font-weight: bold;
-    }
-
-    .info {
-      margin-top: 8px;
-      font-size: 12px;
-      color: #7290a3;
-    }
-
-    .save {
-      width: 100%;
-      margin-top: 20px;
-      padding: 14px;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
+    .btn-hitung {
+      bottom: 94px;
       background: #168dcc;
-      color: white;
-      box-shadow: 0 5px 12px rgba(22, 141, 204, 0.25);
+      font-size: 25px;
+      font-weight: 800;
     }
 
-    .reset {
-      width: 100%;
-      margin-top: 20px;
-      padding: 14px;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      background: #e6f6fc;
-      color: #168dcc;
+    .btn-tambah:active,
+    .btn-hitung:active {
+      transform: scale(.9);
     }
 
-    button:active {
-      transform: scale(0.98);
-    }
+
+    /* =========================
+       POPUP
+    ========================= */
 
     .popup-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.35);
+      background: rgba(0, 0, 0, .45);
       display: none;
       align-items: center;
       justify-content: center;
       padding: 20px;
-      z-index: 9999;
+      z-index: 100;
     }
 
-    .popup-overlay.show {
-      display: flex;
-    }
-
-    .popup-center {
+    .popup {
       width: 100%;
-      max-width: 360px;
+      max-width: 390px;
       background: white;
-      border-radius: 18px;
+      border-radius: 20px;
       padding: 22px;
-      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
-      animation: popupMasuk 0.2s ease;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, .25);
     }
 
-    @keyframes popupMasuk {
-      from {
-        opacity: 0;
-        transform: scale(0.9);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .popup-center h3 {
-      margin: 0 0 10px;
-      color: #168dcc;
+    .popup h2 {
+      margin: 0 0 15px;
       font-size: 20px;
     }
 
-    .popup-center p {
-      margin: 6px 0;
-      color: #526b78;
-    }
-
-    .popup-info {
-      font-size: 13px;
-      color: #8aa0ad !important;
-    }
-
-    .popup-center input {
+    .popup input {
       width: 100%;
-      padding: 12px;
-      margin: 12px 0 18px;
-      border: 1px solid #c9e8f6;
-      border-radius: 10px;
-      font-size: 16px;
-      background: #f8fcff;
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      outline: none;
+      font-size: 14px;
     }
 
     .popup-buttons {
       display: flex;
       gap: 10px;
+      margin-top: 15px;
     }
 
     .popup-buttons button {
-      margin: 0;
       flex: 1;
-      padding: 12px;
       border: none;
+      padding: 12px;
       border-radius: 12px;
+      font-weight: 700;
       cursor: pointer;
     }
 
-    .popup-batal {
-      background: #e6f6fc;
-      color: #168dcc;
+    .btn-batal {
+      background: #eee;
     }
 
-    .popup-oke {
+    .btn-ok {
+      background: #2385aa;
+      color: white;
+    }
+
+
+    /* =========================
+       DETAIL REKAP
+       STYLE SEPERTI GAMBAR 2
+    ========================= */
+
+    #detailPage {
+      display: none;
+      font-family: Poppins, Inter, sans-serif;
+    }
+
+    .detail-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 5px 0 16px;
+    }
+
+    .back-btn {
+      flex-shrink: 0;
+      border: 1px solid #e3edf1;
+      background: white;
+      width: 57px;
+      height: 57px;
+      border-radius: 16px;
+      font-size: 22px;
+      color: #2385aa;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(35, 133, 170, .06);
+    }
+
+    .detail-title {
+      margin: 0;
+    }
+
+    .detail-title h2 {
+      margin: 0;
+      color: #2385aa;
+      font-size: 25px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .detail-title p {
+      color: #899aa2;
+      font-size: 12px;
+      margin: 6px 0 0;
+    }
+
+    .date-btn {
+      width: 100%;
+      text-align: left;
+      border: 1px solid #dcecef;
+      background: white;
+      color: #2385aa;
+      padding: 13px 15px;
+      border-radius: 14px;
+      margin-bottom: 22px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: 0 3px 12px rgba(35, 133, 170, .03);
+    }
+
+    .detail-card {
+      background: white;
+      border: 1px solid #e4eef2;
+      border-radius: 22px;
+      padding: 20px 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 20px rgba(35, 133, 170, .05);
+    }
+
+    .detail-card-title {
+      color: #2385aa;
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #edf2f4;
+    }
+
+    .item:last-child {
+      border-bottom: none;
+    }
+
+    .item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item-name {
+      font-weight: 700;
+      font-size: 14px;
+      color: #41545d;
+    }
+
+    .item-price {
+      font-size: 11px;
+      color: #94a2a8;
+      margin-top: 3px;
+    }
+
+    .item input {
+      width: 106px;
+      height: 44px;
+      padding: 8px;
+      border: 1px solid #dcebef;
+      border-radius: 13px;
+      background: #f6fbfd;
+      color: #26343d;
+      text-align: center;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .item input:focus {
+      border-color: #2385aa;
+      background: white;
+    }
+
+    .total-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0 0;
+      margin-top: 8px;
+      border-top: 1px solid #edf2f4;
+      font-weight: 800;
+      font-size: 15px;
+      color: #2385aa;
+    }
+
+    .total-box + .total-box {
+      margin-top: 14px;
+      padding-top: 16px;
+    }
+
+    .payment-row {
+      margin-bottom: 17px;
+    }
+
+    .payment-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .payment-row label {
+      display: block;
+      font-size: 12px;
+      color: #51636c;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+
+    .payment-row input {
+      width: 100%;
+      height: 45px;
+      padding: 12px;
+      border: 1px solid #dcebef;
+      border-radius: 13px;
+      outline: none;
+      background: #fff;
+      color: #26343d;
+      font-size: 13px;
+    }
+
+    .payment-row input[readonly] {
+      background: #f6fbfd;
+      color: #2385aa;
+      font-weight: 700;
+    }
+
+    .payment-row:last-child input {
+      color: #2385aa;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .save-btn {
+      width: 100%;
+      height: 51px;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
       background: #168dcc;
       color: white;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 4px;
+      box-shadow: 0 6px 16px rgba(22, 141, 204, .18);
+    }
+
+    .reset-btn {
+      width: 100%;
+      height: 51px;
+      padding: 13px;
+      border: none;
+      border-radius: 14px;
+      background: #e9f6fb;
+      color: #2385aa;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+
+    /* =========================
+       HITUNG KODE
+    ========================= */
+
+    #hitungPage {
+      display: none;
+      margin: -15px;
+      padding: 18px 18px 40px;
+      min-height: calc(100vh + 15px);
+      background: #f5f8fa;
+      font-family: Inter, Poppins, sans-serif;
+    }
+
+    .hk-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .hk-back {
+      width: 44px;
+      height: 44px;
+      border: none;
+      border-radius: 13px;
+      background: white;
+      font-size: 24px;
+      color: #2385aa;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .07);
+    }
+
+    .hk-title h1 {
+      margin: 0;
+      font-size: 23px;
+      color: #2385aa;
+      font-weight: 800;
+    }
+
+    .hk-title p {
+      margin: 4px 0 0;
+      font-size: 12px;
+      color: #7c8b96;
+    }
+
+    .hk-card {
+      background: white;
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, .07);
+    }
+
+    .hk-card-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    .hk-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .hk-nominal {
+      border: 1px solid #edf0f2;
+      background: #fff;
+      color: #2385aa;
+      border-radius: 14px;
+      padding: 13px 7px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      line-height: 1.45;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, .04);
+      transition: .15s;
+    }
+
+    .hk-nominal:active {
+      transform: scale(.95);
+      background: #eef8fc;
+    }
+
+    .hk-note {
+      width: 100%;
+      height: 45px;
+      border: 1px solid #dce5eb;
+      border-radius: 12px;
+      padding: 12px;
+      outline: none;
+      resize: none;
+      font-size: 13px;
+      white-space: nowrap;
+      overflow-x: auto;
+      background: #fff;
+    }
+
+    .hk-note:focus {
+      border-color: #2385aa;
+    }
+
+    .hk-dark-btn {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 13px;
+      background: #2385aa;
+      color: white;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .hk-total-card {
+      background: white;
+      color: #222;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, .07);
+      border-left: 5px solid #2385aa;
+    }
+
+    .hk-total-label {
+      font-size: 12px;
+      color: #888;
+      font-weight: 600;
+    }
+
+    .hk-total {
+      font-size: 30px;
+      color: #2385aa;
+      font-weight: 800;
+      margin-top: 5px;
+    }
+
+    .hk-detail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hk-detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 0;
+      border-bottom: 1px solid #edf1f3;
+      font-size: 13px;
+    }
+
+    .hk-detail-row:last-child {
+      border-bottom: none;
+    }
+
+    .hk-detail-code {
+      font-weight: 800;
+      color: #2385aa;
+    }
+
+
+    /* =========================
+       CALCULATOR
+       4 KOLOM
+    ========================= */
+
+    .hk-calculator {
+      background: white;
+      border-radius: 18px;
+      padding: 15px;
+      margin-top: 14px;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, .07);
+    }
+
+    .hk-calc-title {
+      color: #555;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    #calcNumber {
+      width: 100%;
+      height: 58px;
+      background: #f5f8fa;
+      color: #222;
+      border: 1px solid #e4eaee;
+      border-radius: 13px;
+      margin-bottom: 11px;
+      padding: 0 15px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-size: 25px;
+      font-weight: 700;
+      overflow: hidden;
+    }
+
+    .hk-calc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .hk-calc-btn {
+      height: 52px;
+      border: none;
+      border-radius: 12px;
+      background: #eef4f7;
+      color: #26343d;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .12s;
+    }
+
+    .hk-calc-btn:active {
+      transform: scale(.93);
+      background: #dcecf3;
+    }
+
+    .hk-calc-btn.special {
+      background: #2385aa;
+      color: white;
+    }
+
+    .hk-calc-btn.zero,
+    .hk-calc-btn.double-zero {
+      grid-column: span 2;
+    }
+
+    .hk-change {
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: 13px;
+      background: #f5f8fa;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 800;
+    }
+
+    #kembalian {
+      color: #2385aa;
+      font-size: 18px;
+    }
+
+    .hk-clear-btn {
+      width: 100%;
+      margin-top: 14px;
+      padding: 14px;
+      border: none;
+      border-radius: 13px;
+      background: #e8ecef;
+      color: #3d4a52;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .hk-submit-btn {
+      width: 100%;
+      margin-top: 10px;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      background: #2385aa;
+      color: white;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(35, 133, 170, .2);
+    }
+
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 350px) {
+
+      .hk-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #gridContainer {
+        grid-template-columns: 1fr;
+      }
+
+      .hk-calc-btn {
+        height: 48px;
+      }
+
+      .item input {
+        width: 82px;
+      }
+
+      .detail-card {
+        padding: 17px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- MENU -->
+
+  <!-- =========================
+       MENU REKAP
+  ========================= -->
 
   <div id="menuPage">
 
-    <div class="header">
-      <h2>START KOPI</h2>
+    <div class="header-rekap">
+      <h1>START KOPI</h1>
       <p>Daftar Penjualan Kamu</p>
     </div>
 
     <div id="gridContainer"></div>
 
-    <button class="btn-tambah" onclick="bukaPopup()">
+    <button
+      class="btn-hitung"
+      onclick="bukaHitungKode()"
+      aria-label="Hitung Kode">
+      #
+    </button>
+
+    <button
+      class="btn-tambah"
+      onclick="bukaPopup()"
+      aria-label="Buat Baru">
       +
     </button>
 
   </div>
 
 
-  <!-- POPUP BUAT REKAP -->
+  <!-- =========================
+       POPUP BUAT REKAP
+  ========================= -->
 
-  <div class="popup-bg" id="popupTambah">
+  <div class="popup-overlay" id="popupTambah">
 
-    <div class="popup" onclick="event.stopPropagation()">
+    <div class="popup">
 
-      <h3>Buat Baru</h3>
+      <h2>Buat Rekap Baru</h2>
 
       <input
-        class="input"
-        id="judul"
         type="text"
-        placeholder="Judul rekap">
+        id="namaRekap"
+        placeholder="Contoh: Senin Pagi"
+        maxlength="40"
+      >
 
-      <input
-        class="input"
-        id="tanggalBuat"
-        type="date">
-
-      <button
-        class="simpan"
-        onclick="buatRekap()">
-        Buat Rekap
-      </button>
-
-      <button
-        class="batal"
-        onclick="tutupPopup()">
-        Batal
-      </button>
-
-    </div>
-  </div>
-
-
-  <!-- POPUP HAPUS -->
-
-  <div class="popup-bg hapus-popup" id="popupHapus">
-
-    <div class="hapus-box">
-
-      <h3>Hapus Rekap?</h3>
-
-      <p>
-        Apakah kamu ingin menghapus recap ini?
-      </p>
-
-      <div class="hapus-buttons">
+      <div class="popup-buttons">
 
         <button
-          class="btn-tidak"
-          onclick="tutupHapus()">
-          Tidak
+          class="btn-batal"
+          onclick="tutupPopup()">
+          Batal
         </button>
 
         <button
-          class="btn-iya"
-          onclick="hapusRekap()">
-          Iya
+          class="btn-ok"
+          onclick="buatRekap()">
+          Buat
         </button>
 
       </div>
 
     </div>
+
   </div>
 
 
-  <!-- DETAIL -->
+  <!-- =========================
+       DETAIL REKAP
+  ========================= -->
 
   <div id="detailPage">
 
@@ -594,160 +810,58 @@
         ←
       </button>
 
-      <h1
-        class="detail-title"
-        id="detailTitle">
-        Rekap
-      </h1>
+      <div class="detail-title">
+
+        <h2 id="detailTitle">
+          Rekap
+        </h2>
+
+        <p id="detailDate"></p>
+
+      </div>
 
     </div>
 
 
-    <div class="tanggal">
-
-      <button
-        type="button"
-        class="tanggal-btn"
-        id="btnTanggal">
-
-        <span id="tanggalTampil"></span>
-
-      </button>
-
-    </div>
+    <button
+      class="date-btn"
+      onclick="bukaTanggal()">
+      📅 Ubah Tanggal
+    </button>
 
 
-    <!-- BARANG -->
+    <!-- LIST MINUMAN -->
 
-    <div class="card">
+    <div class="detail-card">
 
-      <div class="judul">
+      <div class="detail-card-title">
         LIST MINUMAN
       </div>
 
-      <div class="item">
-        <span class="kode">LT</span>
-        <span class="harga">Rp8.000</span>
-        <input
-          type="number"
-          min="0"
-          value="0"
-          class="barang"
-          data-harga="8000">
+      <div id="barangContainer"></div>
+
+      <div class="total-box">
+
+        <span>
+          TOTAL CUP
+        </span>
+
+        <span id="totalBarang">
+          0
+        </span>
+
       </div>
 
-      <div class="item">
-        <span class="kode">TT</span>
-        <span class="harga">Rp10.000</span>
-        <input
-          type="number"
-          min="0"
-          value="0"
-          class="barang"
-          data-harga="10000">
-      </div>
+      <div class="total-box">
 
-      <div class="item">
-        <span class="kode">BS</span>
-        <span class="harga">Rp10.000</span>
-        <input
-          type="number"
-          min="0"
-          value="0"
-          class="barang"
-          data-harga="10000">
-      </div>
+        <span>
+          TOTAL PEMBAYARAN
+        </span>
 
-      <div class="item">
-        <span class="kode">SM</span>
-        <span class="harga">Rp12.000</span>
-        <input
-          type="number"
-          min="0"
-          value="0"
-          class="barang"
-          data-harga="12000">
-      </div>
-
-      <!-- AM DITAMBAHKAN DI SINI -->
-      <div class="item">
-        <span class="kode">AM</span>
-        <span class="harga">Rp8.000</span>
-        <input
-          type="number"
-          min="0"
-          value="0"
-          class="barang"
-          data-harga="8000">
-      </div>
-
-      <div class="item">
-        <span class="kode">KS</span>
-        <span class="harga">Rp10.000</span>
-        <input
-          type="number"
-          min="0"
-          value="0"
-          class="barang"
-          data-harga="10000">
-      </div>
-
-      <div class="item">
-        <span class="kode">KA</span>
-        <span class="harga">Rp12.000</span>
-        <input
-          type="number"
-          min="0"
-          value="0"
-          class="barang"
-          data-harga="12000">
-      </div>
-
-      <div class="item">
-        <span class="kode">KC</span>
-        <span class="harga">Rp12.000</span>
-        <input
-          type="number"
-          min="0"
-          value="0"
-          class="barang"
-          data-harga="12000">
-      </div>
-
-      <div class="item">
-        <span class="kode">KP</span>
-        <span class="harga">Rp13.000</span>
-        <input
-          type="number"
-          min="0"
-          value="0"
-          class="barang"
-          data-harga="13000">
-      </div>
-
-      <div class="item">
-        <span class="kode">SC</span>
-        <span class="harga">Rp14.000</span>
-        <input
-          type="number"
-          min="0"
-          value="0"
-          class="barang"
-          data-harga="14000">
-      </div>
-
-      <div class="total">
-        <span>TOTAL CUP</span>
-        <span id="totalBarang">0</span>
-      </div>
-
-      <div class="total">
-        <span>TOTAL PEMBAYARAN</span>
-        <span
-          class="total-harga"
-          id="totalPembayaran">
+        <span id="totalPembayaran">
           Rp0
         </span>
+
       </div>
 
     </div>
@@ -755,60 +869,56 @@
 
     <!-- PEMBAYARAN -->
 
-    <div class="card">
+    <div class="detail-card">
 
-      <div class="judul">
+      <div class="detail-card-title">
         Pembayaran
       </div>
 
-      <div class="item">
+      <div class="payment-row">
 
-        <span class="kode">
+        <label>
           QRIS
-        </span>
-
-        <span class="harga"></span>
+        </label>
 
         <input
           type="number"
-          min="0"
           id="qris"
-          placeholder="0">
+          placeholder="0"
+          oninput="simpanOtomatis()"
+        >
 
       </div>
 
-      <div class="item">
 
-        <span class="kode">
+      <div class="payment-row">
+
+        <label>
           CASH
-        </span>
-
-        <span class="harga"></span>
+        </label>
 
         <input
           type="text"
           id="cash"
           value="Rp0"
-          class="cash-auto"
-          readonly>
+          readonly
+        >
 
       </div>
 
-      <div class="info">
-        CASH = Total Pembayaran − QRIS
-      </div>
 
-      <div class="total">
+      <div class="payment-row">
 
-        <span>
+        <label>
           TOTAL
-        </span>
+        </label>
 
-        <span
-          class="total-harga"
-          id="totalPembayaran2">
-          Rp0
-        </span>
+        <input
+          type="text"
+          id="totalBayarDisplay"
+          value="Rp0"
+          readonly
+        >
 
       </div>
 
@@ -816,340 +926,542 @@
 
 
     <button
-      type="button"
-      class="save"
-      id="btnSave">
+      class="save-btn"
+      onclick="simpanManual()">
       💾 SAVE
     </button>
 
     <button
-      type="button"
-      class="reset"
-      id="btnReset">
+      class="reset-btn"
+      onclick="resetDetail()">
       Reset
     </button>
 
   </div>
 
 
-  <!-- POPUP TANGGAL -->
+  <!-- =========================
+       HITUNG KODE
+  ========================= -->
+
+  <div id="hitungPage">
+
+    <div class="hk-top">
+
+      <button
+        class="hk-back"
+        onclick="kembaliDariHitung()">
+        ←
+      </button>
+
+      <div class="hk-title">
+
+        <h1>Hitung Kode</h1>
+
+        <p>
+          Hitung pesanan berdasarkan kode minuman
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- NOMINAL -->
+
+    <div class="hk-card">
+
+      <div class="hk-card-title">
+        NOMINAL MINUMAN
+      </div>
+
+      <div class="hk-grid">
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('LT', 8)">
+          LT · 8<br>
+          LEMON TEA
+        </button>
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('TT', 10)">
+          TT · 10<br>
+          THAI TEAA
+        </button>
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('BS', 10)">
+          BS · 10<br>
+          BROWN SUGAR
+        </button>
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('SM', 12)">
+          SM · 12<br>
+          START MILO
+        </button>
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('AM', 8)">
+          AM · 8<br>
+          AMERICANO
+        </button>
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('KS', 10)">
+          KS · 10<br>
+          KOPI SUSU
+        </button>
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('KA', 12)">
+          KA · 12<br>
+          KOPI AREN
+        </button>
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('KC', 12)">
+          KC · 12<br>
+          KOPI COKLAT
+        </button>
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('KP', 13)">
+          KP · 13<br>
+          KOPI PANDAN
+        </button>
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('SC', 14)">
+          SC · 14<br>
+          SALTED CARAMEL
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- CATATAN -->
+
+    <div class="hk-card">
+
+      <div class="hk-card-title">
+        CATATAN
+      </div>
+
+      <textarea
+        id="catatan"
+        class="hk-note"
+        placeholder="Contoh: KS / LT / KS / SM"
+        oninput="hitungKode()"
+      ></textarea>
+
+      <button
+        class="hk-dark-btn"
+        onclick="hapusSatuNominal()"
+        style="margin-top:10px;">
+        Hapus 1 Nominal
+      </button>
+
+    </div>
+
+
+    <!-- TOTAL -->
+
+    <div class="hk-total-card">
+
+      <div class="hk-total-label">
+        TOTAL PEMBELIAN
+      </div>
+
+      <div
+        class="hk-total"
+        id="total">
+        0
+      </div>
+
+    </div>
+
+
+    <!-- DETAIL -->
+
+    <div class="hk-card">
+
+      <div class="hk-card-title">
+        DETAIL LIST
+      </div>
+
+      <div
+        class="hk-detail-list"
+        id="detailList">
+      </div>
+
+    </div>
+
+
+    <!-- CALCULATOR -->
+
+    <div class="hk-calculator">
+
+      <div class="hk-calc-title">
+        UANG MASUK
+      </div>
+
+      <div id="calcNumber">
+        0
+      </div>
+
+
+      <!-- 4 KOLOM -->
+
+      <div class="hk-calc-grid">
+
+        <!-- BARIS 1 -->
+
+        <button
+          class="hk-calc-btn"
+          onclick="tambahUang('7')">
+          7
+        </button>
+
+        <button
+          class="hk-calc-btn"
+          onclick="tambahUang('8')">
+          8
+        </button>
+
+        <button
+          class="hk-calc-btn"
+          onclick="tambahUang('9')">
+          9
+        </button>
+
+        <button
+          class="hk-calc-btn special"
+          onclick="hapusAngkaUang()">
+          ⌫
+        </button>
+
+
+        <!-- BARIS 2 -->
+
+        <button
+          class="hk-calc-btn"
+          onclick="tambahUang('4')">
+          4
+        </button>
+
+        <button
+          class="hk-calc-btn"
+          onclick="tambahUang('5')">
+          5
+        </button>
+
+        <button
+          class="hk-calc-btn"
+          onclick="tambahUang('6')">
+          6
+        </button>
+
+        <button
+          class="hk-calc-btn special"
+          onclick="clearUang()">
+          C
+        </button>
+
+
+        <!-- BARIS 3 -->
+
+        <button
+          class="hk-calc-btn"
+          onclick="tambahUang('1')">
+          1
+        </button>
+
+        <button
+          class="hk-calc-btn"
+          onclick="tambahUang('2')">
+          2
+        </button>
+
+        <button
+          class="hk-calc-btn"
+          onclick="tambahUang('3')">
+          3
+        </button>
+
+
+        <!-- BARIS 4 -->
+
+        <button
+          class="hk-calc-btn zero"
+          onclick="tambahUang('0')">
+          0
+        </button>
+
+        <button
+          class="hk-calc-btn double-zero"
+          onclick="tambahUang('00')">
+          00
+        </button>
+
+      </div>
+
+
+      <div class="hk-change">
+
+        <span>
+          KEMBALIAN
+        </span>
+
+        <span id="kembalian">
+          0
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- BERSIHKAN -->
+
+    <button
+      class="hk-clear-btn"
+      onclick="bersihkanSemua()">
+      Bersihkan Semua
+    </button>
+
+
+    <!-- MASUKKAN KE LIST -->
+
+    <button
+      class="hk-submit-btn"
+      onclick="masukkanKeList()">
+      Masukkan ke List
+    </button>
+
+  </div>
+
+
+  <!-- =========================
+       POPUP TANGGAL
+  ========================= -->
 
   <div
     class="popup-overlay"
     id="popupTanggal">
 
-    <div class="popup-center">
+    <div class="popup">
 
-      <h3>
-        Pilih Tanggal
-      </h3>
+      <h2>Ubah Tanggal</h2>
 
       <input
         type="date"
-        id="inputTanggal">
+        id="tanggalInput"
+      >
 
       <div class="popup-buttons">
 
         <button
-          type="button"
-          class="popup-batal"
-          id="batalTanggal">
+          class="btn-batal"
+          onclick="tutupTanggal()">
           Batal
         </button>
 
         <button
-          type="button"
-          class="popup-oke"
-          id="okeTanggal">
-          Oke
+          class="btn-ok"
+          onclick="simpanTanggal()">
+          Simpan
         </button>
 
       </div>
 
     </div>
-  </div>
 
-
-  <!-- POPUP RESET -->
-
-  <div
-    class="popup-overlay"
-    id="popupReset">
-
-    <div class="popup-center">
-
-      <h3>
-        Reset Data?
-      </h3>
-
-      <p>
-        Apakah yakin ingin mereset?
-      </p>
-
-      <p class="popup-info">
-        Semua data rekap ini akan dihapus.
-      </p>
-
-      <div class="popup-buttons">
-
-        <button
-          type="button"
-          class="popup-batal"
-          id="batalReset">
-          Batal
-        </button>
-
-        <button
-          type="button"
-          class="popup-oke"
-          id="okeReset">
-          Oke
-        </button>
-
-      </div>
-
-    </div>
   </div>
 
 
   <script>
 
-    /* DATA */
+    /* =====================================================
+       DATA REKAP
+    ===================================================== */
 
-    let daftarRekap =
-      JSON.parse(
-        localStorage.getItem("daftarRekap")
-      ) || [];
+    const daftarMenu = [
+      {
+        kode: "LT",
+        nama: "LEMON TEA",
+        harga: 8000
+      },
+      {
+        kode: "TT",
+        nama: "THAI TEAA",
+        harga: 10000
+      },
+      {
+        kode: "BS",
+        nama: "BROWN SUGAR",
+        harga: 10000
+      },
+      {
+        kode: "SM",
+        nama: "START MILO",
+        harga: 12000
+      },
+      {
+        kode: "AM",
+        nama: "AMERICANO",
+        harga: 8000
+      },
+      {
+        kode: "KS",
+        nama: "KOPI SUSU",
+        harga: 10000
+      },
+      {
+        kode: "KA",
+        nama: "KOPI AREN",
+        harga: 12000
+      },
+      {
+        kode: "KC",
+        nama: "KOPI COKLAT",
+        harga: 12000
+      },
+      {
+        kode: "KP",
+        nama: "KOPI PANDAN",
+        harga: 13000
+      },
+      {
+        kode: "SC",
+        nama: "SALTED CARAMEL",
+        harga: 14000
+      }
+    ];
 
-    let idYangAkanDihapus = null;
+
     let rekapAktif = null;
-    let sedangLongPress = false;
 
 
-    /* ELEMENT */
+    function rupiah(angka) {
 
-    const tanggalElement =
-      document.getElementById("tanggalTampil");
-
-    const btnTanggal =
-      document.getElementById("btnTanggal");
-
-    const popupTanggal =
-      document.getElementById("popupTanggal");
-
-    const inputTanggal =
-      document.getElementById("inputTanggal");
-
-    const barang =
-      document.querySelectorAll(".barang");
-
-    const qris =
-      document.getElementById("qris");
-
-    const cash =
-      document.getElementById("cash");
-
-    const totalBarang =
-      document.getElementById("totalBarang");
-
-    const totalPembayaran =
-      document.getElementById("totalPembayaran");
-
-    const totalPembayaran2 =
-      document.getElementById("totalPembayaran2");
-
-    let tanggalDipilih = new Date();
-
-
-    /* POPUP BUAT */
-
-    function bukaPopup() {
-
-      document
-        .getElementById("popupTambah")
-        .classList.add("show");
-
-      const sekarang = new Date();
-
-      document.getElementById("tanggalBuat").value =
-        formatInputDate(sekarang);
-    }
-
-
-    function tutupPopup() {
-
-      document
-        .getElementById("popupTambah")
-        .classList.remove("show");
+      return "Rp" + Number(angka || 0)
+        .toLocaleString("id-ID");
 
     }
 
 
-    /* BUAT REKAP */
+    function escapeHTML(text) {
 
-    function buatRekap() {
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
-      const judul =
-        document
-          .getElementById("judul")
-          .value
-          .trim();
-
-      const tanggal =
-        document
-          .getElementById("tanggalBuat")
-          .value;
-
-      if (!judul) {
-        alert("Judul belum diisi!");
-        return;
-      }
-
-      if (!tanggal) {
-        alert("Tanggal belum dipilih!");
-        return;
-      }
-
-      const id =
-        Date.now().toString();
-
-      const rekap = {
-
-        id: id,
-
-        judul: judul,
-
-        tanggal: tanggal,
-
-        dibuat:
-          new Date().toISOString()
-
-      };
-
-      daftarRekap.unshift(rekap);
-
-      localStorage.setItem(
-        "daftarRekap",
-        JSON.stringify(daftarRekap)
-      );
-
-      document.getElementById("judul").value = "";
-      document.getElementById("tanggalBuat").value = "";
-
-      tutupPopup();
-
-      bukaDetail(id);
     }
 
 
-    /* FORMAT TANGGAL */
-
-    function formatTanggal(tanggal) {
-
-      const date =
-        new Date(
-          tanggal + "T00:00:00"
-        );
-
-      return date.toLocaleDateString(
-        "id-ID",
-        {
-          weekday: "long",
-          day: "numeric",
-          month: "long",
-          year: "numeric"
-        }
-      );
-    }
-
-
-    function formatInputDate(tanggal) {
-
-      const tahun =
-        tanggal.getFullYear();
-
-      const bulan =
-        String(
-          tanggal.getMonth() + 1
-        ).padStart(2, "0");
-
-      const hari =
-        String(
-          tanggal.getDate()
-        ).padStart(2, "0");
-
-      return (
-        tahun +
-        "-" +
-        bulan +
-        "-" +
-        hari
-      );
-    }
-
-
-    /* MENU */
+    /* =====================================================
+       MENU
+    ===================================================== */
 
     function tampilkanRekap() {
 
       const container =
-        document.getElementById(
-          "gridContainer"
-        );
+        document.getElementById("gridContainer");
+
+      const daftar =
+        JSON.parse(
+          localStorage.getItem("daftarRekap")
+        ) || [];
 
       container.innerHTML = "";
 
-      if (daftarRekap.length === 0) {
+      if (!daftar.length) {
 
         container.innerHTML = `
-          <div class="kosong">
-            Belum ada list
+          <div class="empty">
+            Belum ada rekap.<br>
+            Tekan tombol + untuk membuat rekap baru.
           </div>
         `;
 
         return;
       }
 
-      daftarRekap.forEach(rekap => {
+
+      daftar.forEach((item) => {
+
+        const data =
+          JSON.parse(
+            localStorage.getItem("rekap_" + item.id)
+          ) || {};
+
+        const barang =
+          data.barang || Array(10).fill(0);
+
+        let totalCup = 0;
+        let total = 0;
+
+
+        barang.forEach((jumlah, i) => {
+
+          const qty =
+            Number(jumlah) || 0;
+
+          totalCup += qty;
+
+          if (daftarMenu[i]) {
+
+            total +=
+              qty * daftarMenu[i].harga;
+
+          }
+
+        });
+
 
         const card =
           document.createElement("div");
 
-        card.className =
-          "grid-card";
+        card.className = "rekap-card";
+
+        card.onclick = () =>
+          bukaDetail(item.id);
+
 
         card.innerHTML = `
+          <h3>
+            ${escapeHTML(item.nama)}
+          </h3>
 
-          <div class="grid-title">
-            ${escapeHTML(rekap.judul)}
+          <p>
+            ${item.tanggal || "-"}
+          </p>
+
+          <p>
+            ${totalCup} cup
+          </p>
+
+          <div class="harga">
+            ${rupiah(total)}
           </div>
-
-          <div class="grid-date">
-            Dibuat ${formatTanggal(rekap.tanggal)}
-          </div>
-
         `;
 
-        card.addEventListener(
-          "click",
-          function () {
-
-            if (sedangLongPress) {
-
-              sedangLongPress = false;
-
-              return;
-            }
-
-            bukaDetail(rekap.id);
-
-          }
-        );
-
-        pasangLongPress(
-          card,
-          rekap.id
-        );
 
         container.appendChild(card);
 
@@ -1158,536 +1470,3962 @@
     }
 
 
-    /* LONG PRESS */
+    function bukaPopup() {
 
-    function pasangLongPress(
-      element,
-      id
-    ) {
+      document
+        .getElementById("popupTambah")
+        .style.display = "flex";
 
-      let timer = null;
+      setTimeout(() => {
 
-      function mulai() {
+        document
+          .getElementById("namaRekap")
+          .focus();
 
-        sedangLongPress = false;
+      }, 100);
 
-        timer =
-          setTimeout(
-            function () {
-
-              sedangLongPress = true;
-
-              idYangAkanDihapus = id;
-
-              document
-                .getElementById("popupHapus")
-                .classList.add("show");
-
-            },
-            600
-          );
-      }
-
-      function batal() {
-
-        clearTimeout(timer);
-
-      }
-
-      element.addEventListener(
-        "touchstart",
-        mulai,
-        { passive: true }
-      );
-
-      element.addEventListener(
-        "touchend",
-        batal
-      );
-
-      element.addEventListener(
-        "touchmove",
-        batal
-      );
-
-      element.addEventListener(
-        "mousedown",
-        mulai
-      );
-
-      element.addEventListener(
-        "mouseup",
-        batal
-      );
-
-      element.addEventListener(
-        "mouseleave",
-        batal
-      );
     }
 
 
-    /* HAPUS */
+    function tutupPopup() {
 
-    function hapusRekap() {
+      document
+        .getElementById("popupTambah")
+        .style.display = "none";
 
-      if (!idYangAkanDihapus) {
+    }
+
+
+    function buatRekap() {
+
+      const input =
+        document.getElementById("namaRekap");
+
+      const nama =
+        input.value.trim();
+
+
+      if (!nama) {
+
+        alert("Masukkan nama rekap.");
+
         return;
+
       }
 
-      daftarRekap =
-        daftarRekap.filter(
-          rekap =>
-            rekap.id !== idYangAkanDihapus
-        );
 
-      localStorage.removeItem(
-        "rekap_" +
-        idYangAkanDihapus
-      );
+      const daftar =
+        JSON.parse(
+          localStorage.getItem("daftarRekap")
+        ) || [];
+
+
+      const id =
+        Date.now().toString();
+
+
+      const tanggal =
+        new Date()
+          .toLocaleDateString(
+            "id-ID",
+            {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric"
+            }
+          );
+
+
+      daftar.push({
+        id,
+        nama,
+        tanggal
+      });
+
 
       localStorage.setItem(
         "daftarRekap",
-        JSON.stringify(daftarRekap)
+        JSON.stringify(daftar)
       );
 
-      idYangAkanDihapus = null;
 
-      tutupHapus();
+      localStorage.setItem(
+        "rekap_" + id,
+        JSON.stringify({
+          barang: Array(10).fill(0),
+          qris: 0
+        })
+      );
+
+
+      input.value = "";
+
+      tutupPopup();
 
       tampilkanRekap();
+
+      bukaDetail(id);
+
     }
 
 
-    function tutupHapus() {
-
-      document
-        .getElementById("popupHapus")
-        .classList.remove("show");
-
-      idYangAkanDihapus = null;
-    }
-
-
-    /* BUKA DETAIL */
+    /* =====================================================
+       DETAIL
+    ===================================================== */
 
     function bukaDetail(id) {
 
-      const rekap =
-        daftarRekap.find(
-          item => item.id === id
-        );
+      rekapAktif = id;
 
-      if (!rekap) {
-        return;
-      }
 
-      rekapAktif = rekap;
+      document
+        .getElementById("menuPage")
+        .style.display = "none";
 
-      document.getElementById(
-        "menuPage"
-      ).style.display = "none";
 
-      document.getElementById(
-        "detailPage"
-      ).style.display = "block";
+      document
+        .getElementById("hitungPage")
+        .style.display = "none";
 
-      document.getElementById(
-        "detailTitle"
-      ).textContent =
-        rekap.judul;
 
-      tanggalDipilih =
-        new Date(
-          rekap.tanggal +
-          "T00:00:00"
-        );
+      document
+        .getElementById("detailPage")
+        .style.display = "block";
+
 
       loadDataDetail();
+
+      window.scrollTo(0, 0);
+
     }
 
-
-    /* KEMBALI */
 
     function kembaliMenu() {
 
-      simpanOtomatis();
+      document
+        .getElementById("detailPage")
+        .style.display = "none";
 
-      document.getElementById(
-        "detailPage"
-      ).style.display = "none";
 
-      document.getElementById(
-        "menuPage"
-      ).style.display = "block";
+      document
+        .getElementById("menuPage")
+        .style.display = "block";
+
 
       tampilkanRekap();
 
-      rekapAktif = null;
+      window.scrollTo(0, 0);
+
     }
 
-
-    /* TAMPILKAN TANGGAL */
-
-    function tampilkanTanggal() {
-
-      tanggalElement.textContent =
-        formatTanggal(
-          formatInputDate(
-            tanggalDipilih
-          )
-        );
-    }
-
-
-    /* RUPIAH */
-
-    function rupiah(angka) {
-
-      return (
-        "Rp" +
-        angka.toLocaleString("id-ID")
-      );
-    }
-
-
-    /* HITUNG */
-
-    function hitung() {
-
-      let jumlah = 0;
-      let total = 0;
-
-      barang.forEach(input => {
-
-        const jumlahItem =
-          Number(input.value) || 0;
-
-        const harga =
-          Number(
-            input.dataset.harga
-          );
-
-        jumlah += jumlahItem;
-
-        total +=
-          jumlahItem * harga;
-
-      });
-
-      totalBarang.textContent =
-        jumlah;
-
-      totalPembayaran.textContent =
-        rupiah(total);
-
-      totalPembayaran2.textContent =
-        rupiah(total);
-
-      const jumlahQris =
-        Number(qris.value) || 0;
-
-      let jumlahCash =
-        total - jumlahQris;
-
-      if (jumlahCash < 0) {
-        jumlahCash = 0;
-      }
-
-      cash.value =
-        rupiah(jumlahCash);
-    }
-
-
-    /* SIMPAN */
-
-    function simpanOtomatis() {
-
-      if (!rekapAktif) {
-        return;
-      }
-
-      const dataBarang = [];
-
-      barang.forEach(input => {
-
-        dataBarang.push(
-          Number(input.value) || 0
-        );
-
-      });
-
-      const data = {
-
-        barang: dataBarang,
-
-        qris:
-          Number(qris.value) || 0,
-
-        tanggal:
-          formatInputDate(
-            tanggalDipilih
-          )
-      };
-
-      localStorage.setItem(
-        "rekap_" +
-        rekapAktif.id,
-        JSON.stringify(data)
-      );
-
-      const index =
-        daftarRekap.findIndex(
-          item =>
-            item.id === rekapAktif.id
-        );
-
-      if (index !== -1) {
-
-        daftarRekap[index].tanggal =
-          data.tanggal;
-
-        localStorage.setItem(
-          "daftarRekap",
-          JSON.stringify(
-            daftarRekap
-          )
-        );
-      }
-    }
-
-
-    /* SAVE */
-
-    document
-      .getElementById("btnSave")
-      .addEventListener(
-        "click",
-        function () {
-
-          simpanOtomatis();
-
-          alert(
-            "Data berhasil disimpan!"
-          );
-
-        }
-      );
-
-
-    /* LOAD */
 
     function loadDataDetail() {
 
-      barang.forEach(input => {
-        input.value = 0;
-      });
+      if (!rekapAktif) return;
 
-      qris.value = 0;
 
-      const tersimpan =
-        localStorage.getItem(
-          "rekap_" +
-          rekapAktif.id
+      const daftar =
+        JSON.parse(
+          localStorage.getItem("daftarRekap")
+        ) || [];
+
+
+      const info =
+        daftar.find(
+          x => x.id === rekapAktif
         );
 
-      if (tersimpan) {
 
-        const data =
-          JSON.parse(
-            tersimpan
-          );
+      if (!info) return;
 
-        if (data.barang) {
 
-          barang.forEach(
-            (input, index) => {
+      document
+        .getElementById("detailTitle")
+        .textContent = info.nama;
 
-              input.value =
-                data.barang[index] || 0;
 
-            }
-          );
-        }
+      document
+        .getElementById("detailDate")
+        .textContent =
+          "Tanggal: " +
+          (info.tanggal || "-");
 
-        qris.value =
-          data.qris || 0;
 
-        if (data.tanggal) {
+      const data =
+        JSON.parse(
+          localStorage.getItem(
+            "rekap_" + rekapAktif
+          )
+        ) || {};
 
-          tanggalDipilih =
-            new Date(
-              data.tanggal +
-              "T00:00:00"
-            );
-        }
-      }
 
-      tampilkanTanggal();
+      const barang =
+        data.barang ||
+        Array(10).fill(0);
 
-      hitung();
+
+      const container =
+        document.getElementById(
+          "barangContainer"
+        );
+
+
+      container.innerHTML = "";
+
+
+      daftarMenu.forEach((menu, i) => {
+
+        const jumlah =
+          Number(barang[i]) || 0;
+
+
+        const row =
+          document.createElement("div");
+
+        row.className = "item";
+
+
+        row.innerHTML = `
+
+          <div class="item-info">
+
+            <div class="item-name">
+              ${menu.kode}
+            </div>
+
+            <div class="item-price">
+              ${rupiah(menu.harga)}
+            </div>
+
+          </div>
+
+          <input
+            type="number"
+            min="0"
+            value="${jumlah}"
+            onchange="ubahJumlahBarang(${i}, this.value)"
+          >
+
+        `;
+
+
+        container.appendChild(row);
+
+      });
+
+
+      document
+        .getElementById("qris")
+        .value =
+          Number(data.qris || 0);
+
+
+      hitungRekap();
+
     }
 
 
-    /* POPUP TANGGAL */
+    function ubahJumlahBarang(index, value) {
 
-    btnTanggal.addEventListener(
-      "click",
-      function () {
+      if (!rekapAktif) return;
 
-        inputTanggal.value =
-          formatInputDate(
-            tanggalDipilih
+
+      const data =
+        JSON.parse(
+          localStorage.getItem(
+            "rekap_" + rekapAktif
+          )
+        ) || {};
+
+
+      if (!data.barang) {
+
+        data.barang =
+          Array(10).fill(0);
+
+      }
+
+
+      data.barang[index] =
+        Math.max(
+          0,
+          Number(value) || 0
+        );
+
+
+      localStorage.setItem(
+        "rekap_" + rekapAktif,
+        JSON.stringify(data)
+      );
+
+
+      hitungRekap();
+
+      tampilkanRekap();
+
+    }
+
+
+    function hitungRekap() {
+
+      if (!rekapAktif) return;
+
+
+      const data =
+        JSON.parse(
+          localStorage.getItem(
+            "rekap_" + rekapAktif
+          )
+        ) || {};
+
+
+      const barang =
+        data.barang ||
+        Array(10).fill(0);
+
+
+      let totalCup = 0;
+      let totalPembayaran = 0;
+
+
+      barang.forEach((jumlah, i) => {
+
+        const qty =
+          Number(jumlah) || 0;
+
+
+        totalCup += qty;
+
+
+        if (daftarMenu[i]) {
+
+          totalPembayaran +=
+            qty * daftarMenu[i].harga;
+
+        }
+
+      });
+
+
+      const qris =
+        Number(
+          document
+            .getElementById("qris")
+            .value
+        ) || 0;
+
+
+      const cash =
+        totalPembayaran - qris;
+
+
+      document
+        .getElementById("totalBarang")
+        .textContent = totalCup;
+
+
+      document
+        .getElementById("totalPembayaran")
+        .textContent =
+          rupiah(totalPembayaran);
+
+
+      document
+        .getElementById("cash")
+        .value =
+          rupiah(Math.max(0, cash));
+
+
+      document
+        .getElementById("totalBayarDisplay")
+        .value =
+          rupiah(
+            qris + Math.max(0, cash)
           );
 
-        popupTanggal.classList.add(
-          "show"
+    }
+
+
+    function simpanOtomatis() {
+
+      if (!rekapAktif) return;
+
+
+      const data =
+        JSON.parse(
+          localStorage.getItem(
+            "rekap_" + rekapAktif
+          )
+        ) || {};
+
+
+      data.qris =
+        Number(
+          document
+            .getElementById("qris")
+            .value
+        ) || 0;
+
+
+      localStorage.setItem(
+        "rekap_" + rekapAktif,
+        JSON.stringify(data)
+      );
+
+
+      hitungRekap();
+
+    }
+
+
+    function simpanManual() {
+
+      simpanOtomatis();
+
+      alert("Data berhasil disimpan.");
+
+      tampilkanRekap();
+
+    }
+
+
+    /* =====================================================
+       TANGGAL
+    ===================================================== */
+
+    function bukaTanggal() {
+
+      if (!rekapAktif) return;
+
+
+      document
+        .getElementById("popupTanggal")
+        .style.display = "flex";
+
+    }
+
+
+    function tutupTanggal() {
+
+      document
+        .getElementById("popupTanggal")
+        .style.display = "none";
+
+    }
+
+
+    function simpanTanggal() {
+
+      const tanggal =
+        document
+          .getElementById("tanggalInput")
+          .value;
+
+
+      if (!tanggal) {
+
+        alert("Pilih tanggal.");
+
+        return;
+
+      }
+
+
+      const daftar =
+        JSON.parse(
+          localStorage.getItem("daftarRekap")
+        ) || [];
+
+
+      const index =
+        daftar.findIndex(
+          x => x.id === rekapAktif
         );
+
+
+      if (index !== -1) {
+
+        const parts =
+          tanggal.split("-");
+
+
+        daftar[index].tanggal =
+          `${parts[2]}/${parts[1]}/${parts[0]}`;
+
+
+        localStorage.setItem(
+          "daftarRekap",
+          JSON.stringify(daftar)
+        );
+
+      }
+
+
+      tutupTanggal();
+
+      loadDataDetail();
+
+      tampilkanRekap();
+
+    }
+
+
+    /* =====================================================
+       RESET REKAP
+    ===================================================== */
+
+    function resetDetail() {
+
+      if (!rekapAktif) return;
+
+
+      const yakin =
+        confirm(
+          "Reset semua jumlah minuman dan pembayaran?"
+        );
+
+
+      if (!yakin) return;
+
+
+      const data = {
+        barang: Array(10).fill(0),
+        qris: 0
+      };
+
+
+      localStorage.setItem(
+        "rekap_" + rekapAktif,
+        JSON.stringify(data)
+      );
+
+
+      loadDataDetail();
+
+      tampilkanRekap();
+
+    }
+
+
+    /* =====================================================
+       HITUNG KODE
+    ===================================================== */
+
+    const hargaKode = {
+
+      LT: 8,
+      TT: 10,
+      BS: 10,
+      SM: 12,
+      AM: 8,
+      KS: 10,
+      KA: 12,
+      KC: 12,
+      KP: 13,
+      SC: 14
+
+    };
+
+
+    const namaKode = {
+
+      LT: "LEMON TEA",
+      TT: "THAI TEAA",
+      BS: "BROWN SUGAR",
+      SM: "START MILO",
+      AM: "AMERICANO",
+      KS: "KOPI SUSU",
+      KA: "KOPI AREN",
+      KC: "KOPI COKLAT",
+      KP: "KOPI PANDAN",
+      SC: "SALTED CARAMEL"
+
+    };
+
+
+    let totalKodeSekarang = 0;
+    let uangMasukKode = "";
+
+
+    function bukaHitungKode() {
+
+      document
+        .getElementById("menuPage")
+        .style.display = "none";
+
+
+      document
+        .getElementById("detailPage")
+        .style.display = "none";
+
+
+      document
+        .getElementById("hitungPage")
+        .style.display = "block";
+
+
+      window.scrollTo(0, 0);
+
+      hitungKode();
+
+    }
+
+
+    function kembaliDariHitung() {
+
+      document
+        .getElementById("hitungPage")
+        .style.display = "none";
+
+
+      document
+        .getElementById("menuPage")
+        .style.display = "block";
+
+
+      tampilkanRekap();
+
+      window.scrollTo(0, 0);
+
+    }
+
+
+    function tambahKode(kode, nominal) {
+
+      const catatan =
+        document.getElementById("catatan");
+
+
+      let value =
+        catatan.value.trim();
+
+
+      if (value) {
+
+        value += " / " + kode;
+
+      } else {
+
+        value = kode;
+
+      }
+
+
+      catatan.value = value;
+
+      hitungKode();
+
+    }
+
+
+    function parseKode(teks) {
+
+      if (!teks) return [];
+
+
+      const hasil = {};
+
+
+      const bagian =
+        teks
+          .toUpperCase()
+          .split(/[\/,\n]+/)
+          .map(x => x.trim())
+          .filter(Boolean);
+
+
+      bagian.forEach(item => {
+
+        const match =
+          item.match(
+            /^([A-Z]{2})(?:\s*(?:X|\*)?\s*(\d+))?$/
+          );
+
+
+        if (!match) return;
+
+
+        const kode = match[1];
+
+
+        if (!hargaKode[kode]) return;
+
+
+        const jumlah =
+          Number(match[2] || 1);
+
+
+        hasil[kode] =
+          (hasil[kode] || 0) + jumlah;
+
+      });
+
+
+      return Object.entries(hasil)
+        .map(([kode, jumlah]) => ({
+          kode,
+          jumlah
+        }));
+
+    }
+
+
+    function gabungkanKode() {
+
+      const catatan =
+        document.getElementById("catatan");
+
+
+      const hasil =
+        parseKode(catatan.value);
+
+
+      catatan.value =
+        hasil
+          .map(item =>
+            item.jumlah > 1
+              ? `${item.kode} ${item.jumlah}`
+              : item.kode
+          )
+          .join(" / ");
+
+    }
+
+
+    function hitungKode() {
+
+      const catatan =
+        document.getElementById("catatan");
+
+
+      const hasil =
+        parseKode(catatan.value);
+
+
+      let total = 0;
+
+
+      const detail =
+        document.getElementById(
+          "detailList"
+        );
+
+
+      detail.innerHTML = "";
+
+
+      if (!hasil.length) {
+
+        detail.innerHTML = `
+          <div style="
+            color:#999;
+            font-size:13px;
+            padding:5px 0;
+          ">
+            Belum ada kode minuman.
+          </div>
+        `;
+
+      }
+
+
+      hasil.forEach(item => {
+
+        const subtotal =
+          hargaKode[item.kode] *
+          item.jumlah;
+
+
+        total += subtotal;
+
+
+        const row =
+          document.createElement("div");
+
+
+        row.className =
+          "hk-detail-row";
+
+
+        row.innerHTML = `
+
+          <span>
+            <span class="hk-detail-code">
+              ${item.kode}
+            </span>
+            · ${namaKode[item.kode]}
+          </span>
+
+          <strong>
+            ${item.jumlah} × ${hargaKode[item.kode]}
+          </strong>
+
+        `;
+
+
+        detail.appendChild(row);
+
+      });
+
+
+      totalKodeSekarang = total;
+
+
+      document
+        .getElementById("total")
+        .textContent =
+          total.toLocaleString("id-ID");
+
+
+      hitungKembalianKode();
+
+    }
+
+
+    function hapusSatuNominal() {
+
+      const catatan =
+        document.getElementById("catatan");
+
+
+      const hasil =
+        parseKode(catatan.value);
+
+
+      if (!hasil.length) return;
+
+
+      const terakhir =
+        hasil[hasil.length - 1];
+
+
+      if (terakhir.jumlah > 1) {
+
+        terakhir.jumlah--;
+
+      } else {
+
+        hasil.pop();
+
+      }
+
+
+      catatan.value =
+        hasil
+          .map(item =>
+            item.jumlah > 1
+              ? `${item.kode} ${item.jumlah}`
+              : item.kode
+          )
+          .join(" / ");
+
+
+      hitungKode();
+
+    }
+
+
+    /* =====================================================
+       CALCULATOR
+    ===================================================== */
+
+    function tambahUang(angka) {
+
+      if (uangMasukKode.length >= 12) {
+        return;
+      }
+
+
+      if (
+        uangMasukKode === "0" &&
+        angka !== "00"
+      ) {
+
+        uangMasukKode = angka;
+
+      } else {
+
+        if (
+          uangMasukKode === "" &&
+          angka === "00"
+        ) {
+
+          uangMasukKode = "0";
+
+        } else {
+
+          uangMasukKode += angka;
+
+        }
+
+      }
+
+
+      updateCalculator();
+
+    }
+
+
+    function hapusAngkaUang() {
+
+      uangMasukKode =
+        uangMasukKode.slice(0, -1);
+
+
+      updateCalculator();
+
+    }
+
+
+    function clearUang() {
+
+      uangMasukKode = "";
+
+      updateCalculator();
+
+    }
+
+
+    function updateCalculator() {
+
+      const angka =
+        Number(uangMasukKode || 0);
+
+
+      document
+        .getElementById("calcNumber")
+        .textContent =
+          angka.toLocaleString("id-ID");
+
+
+      hitungKembalianKode();
+
+    }
+
+
+    function hitungKembalianKode() {
+
+      const uang =
+        Number(uangMasukKode || 0);
+
+
+      const kembalian =
+        uang - totalKodeSekarang;
+
+
+      document
+        .getElementById("kembalian")
+        .textContent =
+          kembalian.toLocaleString("id-ID");
+
+    }
+
+
+    /* =====================================================
+       BERSIHKAN HITUNG KODE
+    ===================================================== */
+
+    function bersihkanSemua() {
+
+      document
+        .getElementById("catatan")
+        .value = "";
+
+
+      uangMasukKode = "";
+
+      totalKodeSekarang = 0;
+
+
+      document
+        .getElementById("total")
+        .textContent = "0";
+
+
+      document
+        .getElementById("calcNumber")
+        .textContent = "0";
+
+
+      document
+        .getElementById("kembalian")
+        .textContent = "0";
+
+
+      document
+        .getElementById("detailList")
+        .innerHTML = `
+          <div style="
+            color:#999;
+            font-size:13px;
+            padding:5px 0;
+          ">
+            Belum ada kode minuman.
+          </div>
+        `;
+
+    }
+
+
+    /* =====================================================
+       MASUKKAN KE LIST REKAP TERBARU
+    ===================================================== */
+
+    function masukkanKeList() {
+
+      const catatan =
+        document
+          .getElementById("catatan")
+          .value
+          .trim();
+
+
+      if (!catatan) {
+
+        alert(
+          "Catatan masih kosong."
+        );
+
+        return;
+
+      }
+
+
+      const hasil =
+        parseKode(catatan);
+
+
+      if (!hasil.length) {
+
+        alert(
+          "Tidak ada kode minuman yang valid."
+        );
+
+        return;
+
+      }
+
+
+      const daftar =
+        JSON.parse(
+          localStorage.getItem("daftarRekap")
+        ) || [];
+
+
+      if (!daftar.length) {
+
+        alert(
+          "Belum ada rekap. Buat rekap terlebih dahulu."
+        );
+
+        return;
+
+      }
+
+
+      const rekapTerbaru =
+        daftar[daftar.length - 1];
+
+
+      const key =
+        "rekap_" + rekapTerbaru.id;
+
+
+      const data =
+        JSON.parse(
+          localStorage.getItem(key)
+        ) || {};
+
+
+      if (
+        !Array.isArray(data.barang) ||
+        data.barang.length !== 10
+      ) {
+
+        data.barang =
+          Array(10).fill(0);
+
+      }
+
+
+      const indexKode = {
+
+        LT: 0,
+        TT: 1,
+        BS: 2,
+        SM: 3,
+        AM: 4,
+        KS: 5,
+        KA: 6,
+        KC: 7,
+        KP: 8,
+        SC: 9
+
+      };
+
+
+      hasil.forEach(item => {
+
+        const index =
+          indexKode[item.kode];
+
+
+        if (index === undefined) {
+          return;
+        }
+
+
+        data.barang[index] =
+          (
+            Number(data.barang[index]) || 0
+          ) + item.jumlah;
+
+      });
+
+
+      localStorage.setItem(
+        key,
+        JSON.stringify(data)
+      );
+
+
+      tampilkanRekap();
+
+
+      alert(
+        "Berhasil dimasukkan ke list " +
+        `"${rekapTerbaru.nama}" dan tersimpan otomatis.`
+      );
+
+    }
+
+
+    /* =====================================================
+       LONG PRESS HAPUS REKAP
+    ===================================================== */
+
+    let tekanTimer = null;
+
+
+    document.addEventListener(
+      "touchstart",
+      function(e) {
+
+        const card =
+          e.target.closest(".rekap-card");
+
+        if (!card) return;
+
+
+        tekanTimer =
+          setTimeout(() => {
+
+            const daftar =
+              JSON.parse(
+                localStorage.getItem(
+                  "daftarRekap"
+                )
+              ) || [];
+
+
+            const index =
+              Array.from(
+                document.querySelectorAll(
+                  ".rekap-card"
+                )
+              ).indexOf(card);
+
+
+            if (
+              index >= 0 &&
+              daftar[index]
+            ) {
+
+              const target =
+                daftar[index];
+
+
+              const yakin =
+                confirm(
+                  `Hapus rekap "${target.nama}"?`
+                );
+
+
+              if (yakin) {
+
+                daftar.splice(
+                  index,
+                  1
+                );
+
+
+                localStorage.setItem(
+                  "daftarRekap",
+                  JSON.stringify(daftar)
+                );
+
+
+                localStorage.removeItem(
+                  "rekap_" + target.id
+                );
+
+
+                tampilkanRekap();
+
+              }
+
+            }
+
+          }, 800);
+
+      },
+      {
+        passive: true
+      }
+    );
+
+
+    document.addEventListener(
+      "touchend",
+      function() {
+
+        clearTimeout(tekanTimer);
 
       }
     );
 
 
-    document
-      .getElementById("batalTanggal")
-      .addEventListener(
-        "click",
-        function () {
+    document.addEventListener(
+      "touchmove",
+      function() {
 
-          popupTanggal.classList.remove(
-            "show"
-          );
+        clearTimeout(tekanTimer);
 
-        }
-      );
-
-
-    document
-      .getElementById("okeTanggal")
-      .addEventListener(
-        "click",
-        function () {
-
-          if (!inputTanggal.value) {
-            return;
-          }
-
-          tanggalDipilih =
-            new Date(
-              inputTanggal.value +
-              "T00:00:00"
-            );
-
-          tampilkanTanggal();
-
-          simpanOtomatis();
-
-          popupTanggal.classList.remove(
-            "show"
-          );
-
-        }
-      );
-
-
-    /* BARANG */
-
-    barang.forEach(input => {
-
-      input.addEventListener(
-        "input",
-        hitung
-      );
-
-    });
-
-
-    qris.addEventListener(
-      "input",
-      hitung
+      }
     );
 
 
-    /* RESET */
+    /* =====================================================
+       INIT
+    ===================================================== */
 
-    document
-      .getElementById("btnReset")
-      .addEventListener(
-        "click",
-        function () {
+    tampilkanRekap();
 
-          document
-            .getElementById("popupReset")
-            .classList.add("show");
+  </script>
 
-        }
-      );
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>START KOPI</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      padding: 15px 15px 100px;
+      font-family: Poppins, Inter, Arial, sans-serif;
+      background: #f5f8fa;
+      color: #222;
+    }
+
+    button,
+    input,
+    textarea {
+      font-family: inherit;
+    }
+
+    /* =========================
+       MENU REKAP
+    ========================= */
+
+    .header-rekap {
+      text-align: center;
+      margin: 10px 0 25px;
+    }
+
+    .header-rekap h1 {
+      margin: 0;
+      font-size: 25px;
+      font-weight: 800;
+      color: #2385aa;
+    }
+
+    .header-rekap p {
+      margin: 6px 0 0;
+      color: #777;
+      font-size: 14px;
+    }
+
+    #gridContainer {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .rekap-card {
+      background: white;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, .07);
+      border: 1px solid #edf0f2;
+      cursor: pointer;
+      transition: .15s;
+      user-select: none;
+    }
+
+    .rekap-card:active {
+      transform: scale(.97);
+    }
+
+    .rekap-card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      color: #2385aa;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .rekap-card p {
+      margin: 4px 0;
+      font-size: 12px;
+      color: #777;
+    }
+
+    .rekap-card .harga {
+      margin-top: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 50px 20px;
+      color: #999;
+      background: white;
+      border-radius: 18px;
+    }
+
+    .btn-tambah,
+    .btn-hitung {
+      position: fixed;
+      right: 20px;
+      width: 62px;
+      height: 62px;
+      border: none;
+      border-radius: 50%;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 50;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, .18);
+      transition: .15s;
+    }
+
+    .btn-tambah {
+      bottom: 20px;
+      background: #2385aa;
+      font-size: 34px;
+    }
+
+    .btn-hitung {
+      bottom: 94px;
+      background: #168dcc;
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    .btn-tambah:active,
+    .btn-hitung:active {
+      transform: scale(.9);
+    }
 
 
-    document
-      .getElementById("batalReset")
-      .addEventListener(
-        "click",
-        function () {
+    /* =========================
+       POPUP
+    ========================= */
 
-          document
-            .getElementById("popupReset")
-            .classList.remove("show");
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
 
-        }
-      );
+    .popup {
+      width: 100%;
+      max-width: 390px;
+      background: white;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, .25);
+    }
+
+    .popup h2 {
+      margin: 0 0 15px;
+      font-size: 20px;
+    }
+
+    .popup input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .popup-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .popup-buttons button {
+      flex: 1;
+      border: none;
+      padding: 12px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-batal {
+      background: #eee;
+    }
+
+    .btn-ok {
+      background: #2385aa;
+      color: white;
+    }
 
 
-    document
-      .getElementById("okeReset")
-      .addEventListener(
-        "click",
-        function () {
+    /* =========================
+       DETAIL REKAP
+       STYLE SEPERTI GAMBAR 2
+    ========================= */
 
-          barang.forEach(input => {
-            input.value = 0;
-          });
+    #detailPage {
+      display: none;
+      font-family: Poppins, Inter, sans-serif;
+    }
 
-          qris.value = 0;
+    .detail-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 5px 0 16px;
+    }
 
-          localStorage.removeItem(
-            "rekap_" +
-            rekapAktif.id
-          );
+    .back-btn {
+      flex-shrink: 0;
+      border: 1px solid #e3edf1;
+      background: white;
+      width: 57px;
+      height: 57px;
+      border-radius: 16px;
+      font-size: 22px;
+      color: #2385aa;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(35, 133, 170, .06);
+    }
 
-          tanggalDipilih =
-            new Date(
-              rekapAktif.tanggal +
-              "T00:00:00"
-            );
+    .detail-title {
+      margin: 0;
+    }
 
-          tampilkanTanggal();
+    .detail-title h2 {
+      margin: 0;
+      color: #2385aa;
+      font-size: 25px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
 
-          hitung();
+    .detail-title p {
+      color: #899aa2;
+      font-size: 12px;
+      margin: 6px 0 0;
+    }
 
-          document
-            .getElementById("popupReset")
-            .classList.remove("show");
+    .date-btn {
+      width: 100%;
+      text-align: left;
+      border: 1px solid #dcecef;
+      background: white;
+      color: #2385aa;
+      padding: 13px 15px;
+      border-radius: 14px;
+      margin-bottom: 22px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: 0 3px 12px rgba(35, 133, 170, .03);
+    }
 
-        }
-      );
+    .detail-card {
+      background: white;
+      border: 1px solid #e4eef2;
+      border-radius: 22px;
+      padding: 20px 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 20px rgba(35, 133, 170, .05);
+    }
+
+    .detail-card-title {
+      color: #2385aa;
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #edf2f4;
+    }
+
+    .item:last-child {
+      border-bottom: none;
+    }
+
+    .item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item-name {
+      font-weight: 700;
+      font-size: 14px;
+      color: #41545d;
+    }
+
+    .item-price {
+      font-size: 11px;
+      color: #94a2a8;
+      margin-top: 3px;
+    }
+
+    .item input {
+      width: 106px;
+      height: 44px;
+      padding: 8px;
+      border: 1px solid #dcebef;
+      border-radius: 13px;
+      background: #f6fbfd;
+      color: #26343d;
+      text-align: center;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .item input:focus {
+      border-color: #2385aa;
+      background: white;
+    }
+
+    .total-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0 0;
+      margin-top: 8px;
+      border-top: 1px solid #edf2f4;
+      font-weight: 800;
+      font-size: 15px;
+      color: #2385aa;
+    }
+
+    .total-box + .total-box {
+      margin-top: 14px;
+      padding-top: 16px;
+    }
+
+    .payment-row {
+      margin-bottom: 17px;
+    }
+
+    .payment-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .payment-row label {
+      display: block;
+      font-size: 12px;
+      color: #51636c;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+
+    .payment-row input {
+      width: 100%;
+      height: 45px;
+      padding: 12px;
+      border: 1px solid #dcebef;
+      border-radius: 13px;
+      outline: none;
+      background: #fff;
+      color: #26343d;
+      font-size: 13px;
+    }
+
+    .payment-row input[readonly] {
+      background: #f6fbfd;
+      color: #2385aa;
+      font-weight: 700;
+    }
+
+    .payment-row:last-child input {
+      color: #2385aa;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .save-btn {
+      width: 100%;
+      height: 51px;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      background: #168dcc;
+      color: white;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 4px;
+      box-shadow: 0 6px 16px rgba(22, 141, 204, .18);
+    }
+
+    .reset-btn {
+      width: 100%;
+      height: 51px;
+      padding: 13px;
+      border: none;
+      border-radius: 14px;
+      background: #e9f6fb;
+      color: #2385aa;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+    }
 
 
-    /* ESCAPE */
+    /* =========================
+       HITUNG KODE
+    ========================= */
+
+    #hitungPage {
+      display: none;
+      margin: -15px;
+      padding: 18px 18px 40px;
+      min-height: calc(100vh + 15px);
+      background: #f5f8fa;
+      font-family: Inter, Poppins, sans-serif;
+    }
+
+    .hk-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .hk-back {
+      width: 44px;
+      height: 44px;
+      border: none;
+      border-radius: 13px;
+      background: white;
+      font-size: 24px;
+      color: #2385aa;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .07);
+    }
+
+    .hk-title h1 {
+      margin: 0;
+      font-size: 23px;
+      color: #2385aa;
+      font-weight: 800;
+    }
+
+    .hk-title p {
+      margin: 4px 0 0;
+      font-size: 12px;
+      color: #7c8b96;
+    }
+
+    .hk-card {
+      background: white;
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, .07);
+    }
+
+    .hk-card-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    .hk-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .hk-nominal {
+      border: 1px solid #edf0f2;
+      background: #fff;
+      color: #2385aa;
+      border-radius: 14px;
+      padding: 13px 7px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      line-height: 1.45;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, .04);
+      transition: .15s;
+    }
+
+    .hk-nominal:active {
+      transform: scale(.95);
+      background: #eef8fc;
+    }
+
+    .hk-note {
+      width: 100%;
+      height: 45px;
+      border: 1px solid #dce5eb;
+      border-radius: 12px;
+      padding: 12px;
+      outline: none;
+      resize: none;
+      font-size: 13px;
+      white-space: nowrap;
+      overflow-x: auto;
+      background: #fff;
+    }
+
+    .hk-note:focus {
+      border-color: #2385aa;
+    }
+
+    .hk-dark-btn {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 13px;
+      background: #2385aa;
+      color: white;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .hk-total-card {
+      background: white;
+      color: #222;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, .07);
+      border-left: 5px solid #2385aa;
+    }
+
+    .hk-total-label {
+      font-size: 12px;
+      color: #888;
+      font-weight: 600;
+    }
+
+    .hk-total {
+      font-size: 30px;
+      color: #2385aa;
+      font-weight: 800;
+      margin-top: 5px;
+    }
+
+    .hk-detail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hk-detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 0;
+      border-bottom: 1px solid #edf1f3;
+      font-size: 13px;
+    }
+
+    .hk-detail-row:last-child {
+      border-bottom: none;
+    }
+
+    .hk-detail-code {
+      font-weight: 800;
+      color: #2385aa;
+    }
+
+
+    /* =========================
+       CALCULATOR
+       4 KOLOM
+    ========================= */
+
+    .hk-calculator {
+      background: white;
+      border-radius: 18px;
+      padding: 15px;
+      margin-top: 14px;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, .07);
+    }
+
+    .hk-calc-title {
+      color: #555;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    #calcNumber {
+      width: 100%;
+      height: 58px;
+      background: #f5f8fa;
+      color: #222;
+      border: 1px solid #e4eaee;
+      border-radius: 13px;
+      margin-bottom: 11px;
+      padding: 0 15px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-size: 25px;
+      font-weight: 700;
+      overflow: hidden;
+    }
+
+    .hk-calc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .hk-calc-btn {
+      height: 52px;
+      border: none;
+      border-radius: 12px;
+      background: #eef4f7;
+      color: #26343d;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .12s;
+    }
+
+    .hk-calc-btn:active {
+      transform: scale(.93);
+      background: #dcecf3;
+    }
+
+    .hk-calc-btn.special {
+      background: #2385aa;
+      color: white;
+    }
+
+    .hk-calc-btn.zero,
+    .hk-calc-btn.double-zero {
+      grid-column: span 2;
+    }
+
+    .hk-change {
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: 13px;
+      background: #f5f8fa;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 800;
+    }
+
+    #kembalian {
+      color: #2385aa;
+      font-size: 18px;
+    }
+
+    .hk-clear-btn {
+      width: 100%;
+      margin-top: 14px;
+      padding: 14px;
+      border: none;
+      border-radius: 13px;
+      background: #e8ecef;
+      color: #3d4a52;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .hk-submit-btn {
+      width: 100%;
+      margin-top: 10px;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      background: #2385aa;
+      color: white;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(35, 133, 170, .2);
+    }
+
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 350px) {
+
+      .hk-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #gridContainer {
+        grid-template-columns: 1fr;
+      }
+
+      .hk-calc-btn {
+        height: 48px;
+      }
+
+      .item input {
+        width: 82px;
+      }
+
+      .detail-card {
+        padding: 17px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <!-- =========================
+       MENU REKAP
+  ========================= -->
+
+  <div id="menuPage">
+
+    <div class="header-rekap">
+      <h1>START KOPI</h1>
+      <p>Daftar Penjualan Kamu</p>
+    </div>
+
+    <div id="gridContainer"></div>
+
+    <button
+      class="btn-hitung"
+      onclick="bukaHitungKode()"
+      aria-label="Hitung Kode">
+      #
+    </button>
+
+    <button
+      class="btn-tambah"
+      onclick="bukaPopup()"
+      aria-label="Buat Baru">
+      +
+    </button>
+
+  </div>
+
+
+  <!-- =========================
+       POPUP BUAT REKAP
+  ========================= -->
+
+  <div class="popup-overlay" id="popupTambah">
+
+    <div class="popup">
+
+      <h2>Buat Rekap Baru</h2>
+
+      <input
+        type="text"
+        id="namaRekap"
+        placeholder="Contoh: Senin Pagi"
+        maxlength="40"
+      >
+
+      <div class="popup-buttons">
+
+        <button
+          class="btn-batal"
+          onclick="tutupPopup()">
+          Batal
+        </button>
+
+        <button
+          class="btn-ok"
+          onclick="buatRekap()">
+          Buat
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       DETAIL REKAP
+  ========================= -->
+
+  <div id="detailPage">
+
+    <div class="detail-header">
+
+      <button
+        class="back-btn"
+        onclick="kembaliMenu()">
+        ←
+      </button>
+
+      <div class="detail-title">
+
+        <h2 id="detailTitle">
+          Rekap
+        </h2>
+
+        <p id="detailDate"></p>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="date-btn"
+      onclick="bukaTanggal()">
+      📅 Ubah Tanggal
+    </button>
+
+
+    <!-- LIST MINUMAN -->
+
+    <div class="detail-card">
+
+      <div class="detail-card-title">
+        LIST MINUMAN
+      </div>
+
+      <div id="barangContainer"></div>
+
+      <div class="total-box">
+
+        <span>
+          TOTAL CUP
+        </span>
+
+        <span id="totalBarang">
+          0
+        </span>
+
+      </div>
+
+      <div class="total-box">
+
+        <span>
+          TOTAL PEMBAYARAN
+        </span>
+
+        <span id="totalPembayaran">
+          Rp0
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- PEMBAYARAN -->
+
+    <div class="detail-card">
+
+      <div class="detail-card-title">
+        Pembayaran
+      </div>
+
+      <div class="payment-row">
+
+        <label>
+          QRIS
+        </label>
+
+        <input
+          type="number"
+          id="qris"
+          placeholder="0"
+          oninput="simpanOtomatis()"
+        >
+
+      </div>
+
+
+      <div class="payment-row">
+
+        <label>
+          CASH
+        </label>
+
+        <input
+          type="text"
+          id="cash"
+          value="Rp0"
+          readonly
+        >
+
+      </div>
+
+
+      <div class="payment-row">
+
+        <label>
+          TOTAL
+        </label>
+
+        <input
+          type="text"
+          id="totalBayarDisplay"
+          value="Rp0"
+          readonly
+        >
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="save-btn"
+      onclick="simpanManual()">
+      💾 SAVE
+    </button>
+
+    <button
+      class="reset-btn"
+      onclick="resetDetail()">
+      Reset
+    </button>
+
+  </div>
+
+
+  <!-- =========================
+       HITUNG KODE
+  ========================= -->
+
+  <div id="hitungPage">
+
+    <div class="hk-top">
+
+      <button
+        class="hk-back"
+        onclick="kembaliDariHitung()">
+        ←
+      </button>
+
+      <div class="hk-title">
+
+        <h1>Hitung Kode</h1>
+
+        <p>
+          Hitung pesanan berdasarkan kode minuman
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- NOMINAL -->
+
+    <div class="hk-card">
+
+      <div class="hk-card-title">
+        NOMINAL MINUMAN
+      </div>
+
+      <div class="hk-grid">
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('LT', 8)">
+          LT · 8<br>
+          LEMON TEA
+        </button>
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('TT', 10)">
+          TT · 10<br>
+          THAI TEAA
+        </button>
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('BS', 10)">
+          BS · 10<br>
+          BROWN SUGAR
+        </button>
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('SM', 12)">
+          SM · 12<br>
+          START MILO
+        </button>
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('AM', 8)">
+          AM · 8<br>
+          AMERICANO
+        </button>
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('KS', 10)">
+          KS · 10<br>
+          KOPI SUSU
+        </button>
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('KA', 12)">
+          KA · 12<br>
+          KOPI AREN
+        </button>
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('KC', 12)">
+          KC · 12<br>
+          KOPI COKLAT
+        </button>
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('KP', 13)">
+          KP · 13<br>
+          KOPI PANDAN
+        </button>
+
+        <button
+          class="hk-nominal"
+          onclick="tambahKode('SC', 14)">
+          SC · 14<br>
+          SALTED CARAMEL
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- CATATAN -->
+
+    <div class="hk-card">
+
+      <div class="hk-card-title">
+        CATATAN
+      </div>
+
+      <textarea
+        id="catatan"
+        class="hk-note"
+        placeholder="Contoh: KS / LT / KS / SM"
+        oninput="hitungKode()"
+      ></textarea>
+
+      <button
+        class="hk-dark-btn"
+        onclick="hapusSatuNominal()"
+        style="margin-top:10px;">
+        Hapus 1 Nominal
+      </button>
+
+    </div>
+
+
+    <!-- TOTAL -->
+
+    <div class="hk-total-card">
+
+      <div class="hk-total-label">
+        TOTAL PEMBELIAN
+      </div>
+
+      <div
+        class="hk-total"
+        id="total">
+        0
+      </div>
+
+    </div>
+
+
+    <!-- DETAIL -->
+
+    <div class="hk-card">
+
+      <div class="hk-card-title">
+        DETAIL LIST
+      </div>
+
+      <div
+        class="hk-detail-list"
+        id="detailList">
+      </div>
+
+    </div>
+
+
+    <!-- CALCULATOR -->
+
+    <div class="hk-calculator">
+
+      <div class="hk-calc-title">
+        UANG MASUK
+      </div>
+
+      <div id="calcNumber">
+        0
+      </div>
+
+
+      <!-- 4 KOLOM -->
+
+      <div class="hk-calc-grid">
+
+        <!-- BARIS 1 -->
+
+        <button
+          class="hk-calc-btn"
+          onclick="tambahUang('7')">
+          7
+        </button>
+
+        <button
+          class="hk-calc-btn"
+          onclick="tambahUang('8')">
+          8
+        </button>
+
+        <button
+          class="hk-calc-btn"
+          onclick="tambahUang('9')">
+          9
+        </button>
+
+        <button
+          class="hk-calc-btn special"
+          onclick="hapusAngkaUang()">
+          ⌫
+        </button>
+
+
+        <!-- BARIS 2 -->
+
+        <button
+          class="hk-calc-btn"
+          onclick="tambahUang('4')">
+          4
+        </button>
+
+        <button
+          class="hk-calc-btn"
+          onclick="tambahUang('5')">
+          5
+        </button>
+
+        <button
+          class="hk-calc-btn"
+          onclick="tambahUang('6')">
+          6
+        </button>
+
+        <button
+          class="hk-calc-btn special"
+          onclick="clearUang()">
+          C
+        </button>
+
+
+        <!-- BARIS 3 -->
+
+        <button
+          class="hk-calc-btn"
+          onclick="tambahUang('1')">
+          1
+        </button>
+
+        <button
+          class="hk-calc-btn"
+          onclick="tambahUang('2')">
+          2
+        </button>
+
+        <button
+          class="hk-calc-btn"
+          onclick="tambahUang('3')">
+          3
+        </button>
+
+
+        <!-- BARIS 4 -->
+
+        <button
+          class="hk-calc-btn zero"
+          onclick="tambahUang('0')">
+          0
+        </button>
+
+        <button
+          class="hk-calc-btn double-zero"
+          onclick="tambahUang('00')">
+          00
+        </button>
+
+      </div>
+
+
+      <div class="hk-change">
+
+        <span>
+          KEMBALIAN
+        </span>
+
+        <span id="kembalian">
+          0
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- BERSIHKAN -->
+
+    <button
+      class="hk-clear-btn"
+      onclick="bersihkanSemua()">
+      Bersihkan Semua
+    </button>
+
+
+    <!-- MASUKKAN KE LIST -->
+
+    <button
+      class="hk-submit-btn"
+      onclick="masukkanKeList()">
+      Masukkan ke List
+    </button>
+
+  </div>
+
+
+  <!-- =========================
+       POPUP TANGGAL
+  ========================= -->
+
+  <div
+    class="popup-overlay"
+    id="popupTanggal">
+
+    <div class="popup">
+
+      <h2>Ubah Tanggal</h2>
+
+      <input
+        type="date"
+        id="tanggalInput"
+      >
+
+      <div class="popup-buttons">
+
+        <button
+          class="btn-batal"
+          onclick="tutupTanggal()">
+          Batal
+        </button>
+
+        <button
+          class="btn-ok"
+          onclick="simpanTanggal()">
+          Simpan
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /* =====================================================
+       DATA REKAP
+    ===================================================== */
+
+    const daftarMenu = [
+      {
+        kode: "LT",
+        nama: "LEMON TEA",
+        harga: 8000
+      },
+      {
+        kode: "TT",
+        nama: "THAI TEAA",
+        harga: 10000
+      },
+      {
+        kode: "BS",
+        nama: "BROWN SUGAR",
+        harga: 10000
+      },
+      {
+        kode: "SM",
+        nama: "START MILO",
+        harga: 12000
+      },
+      {
+        kode: "AM",
+        nama: "AMERICANO",
+        harga: 8000
+      },
+      {
+        kode: "KS",
+        nama: "KOPI SUSU",
+        harga: 10000
+      },
+      {
+        kode: "KA",
+        nama: "KOPI AREN",
+        harga: 12000
+      },
+      {
+        kode: "KC",
+        nama: "KOPI COKLAT",
+        harga: 12000
+      },
+      {
+        kode: "KP",
+        nama: "KOPI PANDAN",
+        harga: 13000
+      },
+      {
+        kode: "SC",
+        nama: "SALTED CARAMEL",
+        harga: 14000
+      }
+    ];
+
+
+    let rekapAktif = null;
+
+
+    function rupiah(angka) {
+
+      return "Rp" + Number(angka || 0)
+        .toLocaleString("id-ID");
+
+    }
+
 
     function escapeHTML(text) {
 
-      const div =
-        document.createElement("div");
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
-      div.textContent =
-        text;
-
-      return div.innerHTML;
     }
 
 
-    /* MULAI */
+    /* =====================================================
+       MENU
+    ===================================================== */
+
+    function tampilkanRekap() {
+
+      const container =
+        document.getElementById("gridContainer");
+
+      const daftar =
+        JSON.parse(
+          localStorage.getItem("daftarRekap")
+        ) || [];
+
+      container.innerHTML = "";
+
+      if (!daftar.length) {
+
+        container.innerHTML = `
+          <div class="empty">
+            Belum ada rekap.<br>
+            Tekan tombol + untuk membuat rekap baru.
+          </div>
+        `;
+
+        return;
+      }
+
+
+      daftar.forEach((item) => {
+
+        const data =
+          JSON.parse(
+            localStorage.getItem("rekap_" + item.id)
+          ) || {};
+
+        const barang =
+          data.barang || Array(10).fill(0);
+
+        let totalCup = 0;
+        let total = 0;
+
+
+        barang.forEach((jumlah, i) => {
+
+          const qty =
+            Number(jumlah) || 0;
+
+          totalCup += qty;
+
+          if (daftarMenu[i]) {
+
+            total +=
+              qty * daftarMenu[i].harga;
+
+          }
+
+        });
+
+
+        const card =
+          document.createElement("div");
+
+        card.className = "rekap-card";
+
+        card.onclick = () =>
+          bukaDetail(item.id);
+
+
+        card.innerHTML = `
+          <h3>
+            ${escapeHTML(item.nama)}
+          </h3>
+
+          <p>
+            ${item.tanggal || "-"}
+          </p>
+
+          <p>
+            ${totalCup} cup
+          </p>
+
+          <div class="harga">
+            ${rupiah(total)}
+          </div>
+        `;
+
+
+        container.appendChild(card);
+
+      });
+
+    }
+
+
+    function bukaPopup() {
+
+      document
+        .getElementById("popupTambah")
+        .style.display = "flex";
+
+      setTimeout(() => {
+
+        document
+          .getElementById("namaRekap")
+          .focus();
+
+      }, 100);
+
+    }
+
+
+    function tutupPopup() {
+
+      document
+        .getElementById("popupTambah")
+        .style.display = "none";
+
+    }
+
+
+    function buatRekap() {
+
+      const input =
+        document.getElementById("namaRekap");
+
+      const nama =
+        input.value.trim();
+
+
+      if (!nama) {
+
+        alert("Masukkan nama rekap.");
+
+        return;
+
+      }
+
+
+      const daftar =
+        JSON.parse(
+          localStorage.getItem("daftarRekap")
+        ) || [];
+
+
+      const id =
+        Date.now().toString();
+
+
+      const tanggal =
+        new Date()
+          .toLocaleDateString(
+            "id-ID",
+            {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric"
+            }
+          );
+
+
+      daftar.push({
+        id,
+        nama,
+        tanggal
+      });
+
+
+      localStorage.setItem(
+        "daftarRekap",
+        JSON.stringify(daftar)
+      );
+
+
+      localStorage.setItem(
+        "rekap_" + id,
+        JSON.stringify({
+          barang: Array(10).fill(0),
+          qris: 0
+        })
+      );
+
+
+      input.value = "";
+
+      tutupPopup();
+
+      tampilkanRekap();
+
+      bukaDetail(id);
+
+    }
+
+
+    /* =====================================================
+       DETAIL
+    ===================================================== */
+
+    function bukaDetail(id) {
+
+      rekapAktif = id;
+
+
+      document
+        .getElementById("menuPage")
+        .style.display = "none";
+
+
+      document
+        .getElementById("hitungPage")
+        .style.display = "none";
+
+
+      document
+        .getElementById("detailPage")
+        .style.display = "block";
+
+
+      loadDataDetail();
+
+      window.scrollTo(0, 0);
+
+    }
+
+
+    function kembaliMenu() {
+
+      document
+        .getElementById("detailPage")
+        .style.display = "none";
+
+
+      document
+        .getElementById("menuPage")
+        .style.display = "block";
+
+
+      tampilkanRekap();
+
+      window.scrollTo(0, 0);
+
+    }
+
+
+    function loadDataDetail() {
+
+      if (!rekapAktif) return;
+
+
+      const daftar =
+        JSON.parse(
+          localStorage.getItem("daftarRekap")
+        ) || [];
+
+
+      const info =
+        daftar.find(
+          x => x.id === rekapAktif
+        );
+
+
+      if (!info) return;
+
+
+      document
+        .getElementById("detailTitle")
+        .textContent = info.nama;
+
+
+      document
+        .getElementById("detailDate")
+        .textContent =
+          "Tanggal: " +
+          (info.tanggal || "-");
+
+
+      const data =
+        JSON.parse(
+          localStorage.getItem(
+            "rekap_" + rekapAktif
+          )
+        ) || {};
+
+
+      const barang =
+        data.barang ||
+        Array(10).fill(0);
+
+
+      const container =
+        document.getElementById(
+          "barangContainer"
+        );
+
+
+      container.innerHTML = "";
+
+
+      daftarMenu.forEach((menu, i) => {
+
+        const jumlah =
+          Number(barang[i]) || 0;
+
+
+        const row =
+          document.createElement("div");
+
+        row.className = "item";
+
+
+        row.innerHTML = `
+
+          <div class="item-info">
+
+            <div class="item-name">
+              ${menu.kode}
+            </div>
+
+            <div class="item-price">
+              ${rupiah(menu.harga)}
+            </div>
+
+          </div>
+
+          <input
+            type="number"
+            min="0"
+            value="${jumlah}"
+            onchange="ubahJumlahBarang(${i}, this.value)"
+          >
+
+        `;
+
+
+        container.appendChild(row);
+
+      });
+
+
+      document
+        .getElementById("qris")
+        .value =
+          Number(data.qris || 0);
+
+
+      hitungRekap();
+
+    }
+
+
+    function ubahJumlahBarang(index, value) {
+
+      if (!rekapAktif) return;
+
+
+      const data =
+        JSON.parse(
+          localStorage.getItem(
+            "rekap_" + rekapAktif
+          )
+        ) || {};
+
+
+      if (!data.barang) {
+
+        data.barang =
+          Array(10).fill(0);
+
+      }
+
+
+      data.barang[index] =
+        Math.max(
+          0,
+          Number(value) || 0
+        );
+
+
+      localStorage.setItem(
+        "rekap_" + rekapAktif,
+        JSON.stringify(data)
+      );
+
+
+      hitungRekap();
+
+      tampilkanRekap();
+
+    }
+
+
+    function hitungRekap() {
+
+      if (!rekapAktif) return;
+
+
+      const data =
+        JSON.parse(
+          localStorage.getItem(
+            "rekap_" + rekapAktif
+          )
+        ) || {};
+
+
+      const barang =
+        data.barang ||
+        Array(10).fill(0);
+
+
+      let totalCup = 0;
+      let totalPembayaran = 0;
+
+
+      barang.forEach((jumlah, i) => {
+
+        const qty =
+          Number(jumlah) || 0;
+
+
+        totalCup += qty;
+
+
+        if (daftarMenu[i]) {
+
+          totalPembayaran +=
+            qty * daftarMenu[i].harga;
+
+        }
+
+      });
+
+
+      const qris =
+        Number(
+          document
+            .getElementById("qris")
+            .value
+        ) || 0;
+
+
+      const cash =
+        totalPembayaran - qris;
+
+
+      document
+        .getElementById("totalBarang")
+        .textContent = totalCup;
+
+
+      document
+        .getElementById("totalPembayaran")
+        .textContent =
+          rupiah(totalPembayaran);
+
+
+      document
+        .getElementById("cash")
+        .value =
+          rupiah(Math.max(0, cash));
+
+
+      document
+        .getElementById("totalBayarDisplay")
+        .value =
+          rupiah(
+            qris + Math.max(0, cash)
+          );
+
+    }
+
+
+    function simpanOtomatis() {
+
+      if (!rekapAktif) return;
+
+
+      const data =
+        JSON.parse(
+          localStorage.getItem(
+            "rekap_" + rekapAktif
+          )
+        ) || {};
+
+
+      data.qris =
+        Number(
+          document
+            .getElementById("qris")
+            .value
+        ) || 0;
+
+
+      localStorage.setItem(
+        "rekap_" + rekapAktif,
+        JSON.stringify(data)
+      );
+
+
+      hitungRekap();
+
+    }
+
+
+    function simpanManual() {
+
+      simpanOtomatis();
+
+      alert("Data berhasil disimpan.");
+
+      tampilkanRekap();
+
+    }
+
+
+    /* =====================================================
+       TANGGAL
+    ===================================================== */
+
+    function bukaTanggal() {
+
+      if (!rekapAktif) return;
+
+
+      document
+        .getElementById("popupTanggal")
+        .style.display = "flex";
+
+    }
+
+
+    function tutupTanggal() {
+
+      document
+        .getElementById("popupTanggal")
+        .style.display = "none";
+
+    }
+
+
+    function simpanTanggal() {
+
+      const tanggal =
+        document
+          .getElementById("tanggalInput")
+          .value;
+
+
+      if (!tanggal) {
+
+        alert("Pilih tanggal.");
+
+        return;
+
+      }
+
+
+      const daftar =
+        JSON.parse(
+          localStorage.getItem("daftarRekap")
+        ) || [];
+
+
+      const index =
+        daftar.findIndex(
+          x => x.id === rekapAktif
+        );
+
+
+      if (index !== -1) {
+
+        const parts =
+          tanggal.split("-");
+
+
+        daftar[index].tanggal =
+          `${parts[2]}/${parts[1]}/${parts[0]}`;
+
+
+        localStorage.setItem(
+          "daftarRekap",
+          JSON.stringify(daftar)
+        );
+
+      }
+
+
+      tutupTanggal();
+
+      loadDataDetail();
+
+      tampilkanRekap();
+
+    }
+
+
+    /* =====================================================
+       RESET REKAP
+    ===================================================== */
+
+    function resetDetail() {
+
+      if (!rekapAktif) return;
+
+
+      const yakin =
+        confirm(
+          "Reset semua jumlah minuman dan pembayaran?"
+        );
+
+
+      if (!yakin) return;
+
+
+      const data = {
+        barang: Array(10).fill(0),
+        qris: 0
+      };
+
+
+      localStorage.setItem(
+        "rekap_" + rekapAktif,
+        JSON.stringify(data)
+      );
+
+
+      loadDataDetail();
+
+      tampilkanRekap();
+
+    }
+
+
+    /* =====================================================
+       HITUNG KODE
+    ===================================================== */
+
+    const hargaKode = {
+
+      LT: 8,
+      TT: 10,
+      BS: 10,
+      SM: 12,
+      AM: 8,
+      KS: 10,
+      KA: 12,
+      KC: 12,
+      KP: 13,
+      SC: 14
+
+    };
+
+
+    const namaKode = {
+
+      LT: "LEMON TEA",
+      TT: "THAI TEAA",
+      BS: "BROWN SUGAR",
+      SM: "START MILO",
+      AM: "AMERICANO",
+      KS: "KOPI SUSU",
+      KA: "KOPI AREN",
+      KC: "KOPI COKLAT",
+      KP: "KOPI PANDAN",
+      SC: "SALTED CARAMEL"
+
+    };
+
+
+    let totalKodeSekarang = 0;
+    let uangMasukKode = "";
+
+
+    function bukaHitungKode() {
+
+      document
+        .getElementById("menuPage")
+        .style.display = "none";
+
+
+      document
+        .getElementById("detailPage")
+        .style.display = "none";
+
+
+      document
+        .getElementById("hitungPage")
+        .style.display = "block";
+
+
+      window.scrollTo(0, 0);
+
+      hitungKode();
+
+    }
+
+
+    function kembaliDariHitung() {
+
+      document
+        .getElementById("hitungPage")
+        .style.display = "none";
+
+
+      document
+        .getElementById("menuPage")
+        .style.display = "block";
+
+
+      tampilkanRekap();
+
+      window.scrollTo(0, 0);
+
+    }
+
+
+    function tambahKode(kode, nominal) {
+
+      const catatan =
+        document.getElementById("catatan");
+
+
+      let value =
+        catatan.value.trim();
+
+
+      if (value) {
+
+        value += " / " + kode;
+
+      } else {
+
+        value = kode;
+
+      }
+
+
+      catatan.value = value;
+
+      hitungKode();
+
+    }
+
+
+    function parseKode(teks) {
+
+      if (!teks) return [];
+
+
+      const hasil = {};
+
+
+      const bagian =
+        teks
+          .toUpperCase()
+          .split(/[\/,\n]+/)
+          .map(x => x.trim())
+          .filter(Boolean);
+
+
+      bagian.forEach(item => {
+
+        const match =
+          item.match(
+            /^([A-Z]{2})(?:\s*(?:X|\*)?\s*(\d+))?$/
+          );
+
+
+        if (!match) return;
+
+
+        const kode = match[1];
+
+
+        if (!hargaKode[kode]) return;
+
+
+        const jumlah =
+          Number(match[2] || 1);
+
+
+        hasil[kode] =
+          (hasil[kode] || 0) + jumlah;
+
+      });
+
+
+      return Object.entries(hasil)
+        .map(([kode, jumlah]) => ({
+          kode,
+          jumlah
+        }));
+
+    }
+
+
+    function gabungkanKode() {
+
+      const catatan =
+        document.getElementById("catatan");
+
+
+      const hasil =
+        parseKode(catatan.value);
+
+
+      catatan.value =
+        hasil
+          .map(item =>
+            item.jumlah > 1
+              ? `${item.kode} ${item.jumlah}`
+              : item.kode
+          )
+          .join(" / ");
+
+    }
+
+
+    function hitungKode() {
+
+      const catatan =
+        document.getElementById("catatan");
+
+
+      const hasil =
+        parseKode(catatan.value);
+
+
+      let total = 0;
+
+
+      const detail =
+        document.getElementById(
+          "detailList"
+        );
+
+
+      detail.innerHTML = "";
+
+
+      if (!hasil.length) {
+
+        detail.innerHTML = `
+          <div style="
+            color:#999;
+            font-size:13px;
+            padding:5px 0;
+          ">
+            Belum ada kode minuman.
+          </div>
+        `;
+
+      }
+
+
+      hasil.forEach(item => {
+
+        const subtotal =
+          hargaKode[item.kode] *
+          item.jumlah;
+
+
+        total += subtotal;
+
+
+        const row =
+          document.createElement("div");
+
+
+        row.className =
+          "hk-detail-row";
+
+
+        row.innerHTML = `
+
+          <span>
+            <span class="hk-detail-code">
+              ${item.kode}
+            </span>
+            · ${namaKode[item.kode]}
+          </span>
+
+          <strong>
+            ${item.jumlah} × ${hargaKode[item.kode]}
+          </strong>
+
+        `;
+
+
+        detail.appendChild(row);
+
+      });
+
+
+      totalKodeSekarang = total;
+
+
+      document
+        .getElementById("total")
+        .textContent =
+          total.toLocaleString("id-ID");
+
+
+      hitungKembalianKode();
+
+    }
+
+
+    function hapusSatuNominal() {
+
+      const catatan =
+        document.getElementById("catatan");
+
+
+      const hasil =
+        parseKode(catatan.value);
+
+
+      if (!hasil.length) return;
+
+
+      const terakhir =
+        hasil[hasil.length - 1];
+
+
+      if (terakhir.jumlah > 1) {
+
+        terakhir.jumlah--;
+
+      } else {
+
+        hasil.pop();
+
+      }
+
+
+      catatan.value =
+        hasil
+          .map(item =>
+            item.jumlah > 1
+              ? `${item.kode} ${item.jumlah}`
+              : item.kode
+          )
+          .join(" / ");
+
+
+      hitungKode();
+
+    }
+
+
+    /* =====================================================
+       CALCULATOR
+    ===================================================== */
+
+    function tambahUang(angka) {
+
+      if (uangMasukKode.length >= 12) {
+        return;
+      }
+
+
+      if (
+        uangMasukKode === "0" &&
+        angka !== "00"
+      ) {
+
+        uangMasukKode = angka;
+
+      } else {
+
+        if (
+          uangMasukKode === "" &&
+          angka === "00"
+        ) {
+
+          uangMasukKode = "0";
+
+        } else {
+
+          uangMasukKode += angka;
+
+        }
+
+      }
+
+
+      updateCalculator();
+
+    }
+
+
+    function hapusAngkaUang() {
+
+      uangMasukKode =
+        uangMasukKode.slice(0, -1);
+
+
+      updateCalculator();
+
+    }
+
+
+    function clearUang() {
+
+      uangMasukKode = "";
+
+      updateCalculator();
+
+    }
+
+
+    function updateCalculator() {
+
+      const angka =
+        Number(uangMasukKode || 0);
+
+
+      document
+        .getElementById("calcNumber")
+        .textContent =
+          angka.toLocaleString("id-ID");
+
+
+      hitungKembalianKode();
+
+    }
+
+
+    function hitungKembalianKode() {
+
+      const uang =
+        Number(uangMasukKode || 0);
+
+
+      const kembalian =
+        uang - totalKodeSekarang;
+
+
+      document
+        .getElementById("kembalian")
+        .textContent =
+          kembalian.toLocaleString("id-ID");
+
+    }
+
+
+    /* =====================================================
+       BERSIHKAN HITUNG KODE
+    ===================================================== */
+
+    function bersihkanSemua() {
+
+      document
+        .getElementById("catatan")
+        .value = "";
+
+
+      uangMasukKode = "";
+
+      totalKodeSekarang = 0;
+
+
+      document
+        .getElementById("total")
+        .textContent = "0";
+
+
+      document
+        .getElementById("calcNumber")
+        .textContent = "0";
+
+
+      document
+        .getElementById("kembalian")
+        .textContent = "0";
+
+
+      document
+        .getElementById("detailList")
+        .innerHTML = `
+          <div style="
+            color:#999;
+            font-size:13px;
+            padding:5px 0;
+          ">
+            Belum ada kode minuman.
+          </div>
+        `;
+
+    }
+
+
+    /* =====================================================
+       MASUKKAN KE LIST REKAP TERBARU
+    ===================================================== */
+
+    function masukkanKeList() {
+
+      const catatan =
+        document
+          .getElementById("catatan")
+          .value
+          .trim();
+
+
+      if (!catatan) {
+
+        alert(
+          "Catatan masih kosong."
+        );
+
+        return;
+
+      }
+
+
+      const hasil =
+        parseKode(catatan);
+
+
+      if (!hasil.length) {
+
+        alert(
+          "Tidak ada kode minuman yang valid."
+        );
+
+        return;
+
+      }
+
+
+      const daftar =
+        JSON.parse(
+          localStorage.getItem("daftarRekap")
+        ) || [];
+
+
+      if (!daftar.length) {
+
+        alert(
+          "Belum ada rekap. Buat rekap terlebih dahulu."
+        );
+
+        return;
+
+      }
+
+
+      const rekapTerbaru =
+        daftar[daftar.length - 1];
+
+
+      const key =
+        "rekap_" + rekapTerbaru.id;
+
+
+      const data =
+        JSON.parse(
+          localStorage.getItem(key)
+        ) || {};
+
+
+      if (
+        !Array.isArray(data.barang) ||
+        data.barang.length !== 10
+      ) {
+
+        data.barang =
+          Array(10).fill(0);
+
+      }
+
+
+      const indexKode = {
+
+        LT: 0,
+        TT: 1,
+        BS: 2,
+        SM: 3,
+        AM: 4,
+        KS: 5,
+        KA: 6,
+        KC: 7,
+        KP: 8,
+        SC: 9
+
+      };
+
+
+      hasil.forEach(item => {
+
+        const index =
+          indexKode[item.kode];
+
+
+        if (index === undefined) {
+          return;
+        }
+
+
+        data.barang[index] =
+          (
+            Number(data.barang[index]) || 0
+          ) + item.jumlah;
+
+      });
+
+
+      localStorage.setItem(
+        key,
+        JSON.stringify(data)
+      );
+
+
+      tampilkanRekap();
+
+
+      alert(
+        "Berhasil dimasukkan ke list " +
+        `"${rekapTerbaru.nama}" dan tersimpan otomatis.`
+      );
+
+    }
+
+
+    /* =====================================================
+       LONG PRESS HAPUS REKAP
+    ===================================================== */
+
+    let tekanTimer = null;
+
+
+    document.addEventListener(
+      "touchstart",
+      function(e) {
+
+        const card =
+          e.target.closest(".rekap-card");
+
+        if (!card) return;
+
+
+        tekanTimer =
+          setTimeout(() => {
+
+            const daftar =
+              JSON.parse(
+                localStorage.getItem(
+                  "daftarRekap"
+                )
+              ) || [];
+
+
+            const index =
+              Array.from(
+                document.querySelectorAll(
+                  ".rekap-card"
+                )
+              ).indexOf(card);
+
+
+            if (
+              index >= 0 &&
+              daftar[index]
+            ) {
+
+              const target =
+                daftar[index];
+
+
+              const yakin =
+                confirm(
+                  `Hapus rekap "${target.nama}"?`
+                );
+
+
+              if (yakin) {
+
+                daftar.splice(
+                  index,
+                  1
+                );
+
+
+                localStorage.setItem(
+                  "daftarRekap",
+                  JSON.stringify(daftar)
+                );
+
+
+                localStorage.removeItem(
+                  "rekap_" + target.id
+                );
+
+
+                tampilkanRekap();
+
+              }
+
+            }
+
+          }, 800);
+
+      },
+      {
+        passive: true
+      }
+    );
+
+
+    document.addEventListener(
+      "touchend",
+      function() {
+
+        clearTimeout(tekanTimer);
+
+      }
+    );
+
+
+    document.addEventListener(
+      "touchmove",
+      function() {
+
+        clearTimeout(tekanTimer);
+
+      }
+    );
+
+
+    /* =====================================================
+       INIT
+    ===================================================== */
 
     tampilkanRekap();
 
