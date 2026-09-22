@@ -529,7 +529,6 @@
         type="text"
         placeholder="Judul rekap">
 
-      <!-- ID SUDAH DIGANTI -->
       <input
         class="input"
         id="tanggalBuat"
@@ -611,7 +610,6 @@
         class="tanggal-btn"
         id="btnTanggal">
 
-        <!-- ID SUDAH DIGANTI -->
         <span id="tanggalTampil"></span>
 
       </button>
@@ -630,64 +628,112 @@
       <div class="item">
         <span class="kode">LT</span>
         <span class="harga">Rp8.000</span>
-        <input type="number" min="0" value="0"
-          class="barang" data-harga="8000">
+        <input
+          type="number"
+          min="0"
+          value="0"
+          class="barang"
+          data-harga="8000">
       </div>
 
       <div class="item">
         <span class="kode">TT</span>
         <span class="harga">Rp10.000</span>
-        <input type="number" min="0" value="0"
-          class="barang" data-harga="10000">
+        <input
+          type="number"
+          min="0"
+          value="0"
+          class="barang"
+          data-harga="10000">
       </div>
 
       <div class="item">
         <span class="kode">BS</span>
         <span class="harga">Rp10.000</span>
-        <input type="number" min="0" value="0"
-          class="barang" data-harga="10000">
+        <input
+          type="number"
+          min="0"
+          value="0"
+          class="barang"
+          data-harga="10000">
       </div>
 
       <div class="item">
         <span class="kode">SM</span>
         <span class="harga">Rp12.000</span>
-        <input type="number" min="0" value="0"
-          class="barang" data-harga="12000">
+        <input
+          type="number"
+          min="0"
+          value="0"
+          class="barang"
+          data-harga="12000">
+      </div>
+
+      <!-- AM DITAMBAHKAN DI SINI -->
+      <div class="item">
+        <span class="kode">AM</span>
+        <span class="harga">Rp8.000</span>
+        <input
+          type="number"
+          min="0"
+          value="0"
+          class="barang"
+          data-harga="8000">
       </div>
 
       <div class="item">
         <span class="kode">KS</span>
         <span class="harga">Rp10.000</span>
-        <input type="number" min="0" value="0"
-          class="barang" data-harga="10000">
+        <input
+          type="number"
+          min="0"
+          value="0"
+          class="barang"
+          data-harga="10000">
       </div>
 
       <div class="item">
         <span class="kode">KA</span>
         <span class="harga">Rp12.000</span>
-        <input type="number" min="0" value="0"
-          class="barang" data-harga="12000">
+        <input
+          type="number"
+          min="0"
+          value="0"
+          class="barang"
+          data-harga="12000">
       </div>
 
       <div class="item">
         <span class="kode">KC</span>
         <span class="harga">Rp12.000</span>
-        <input type="number" min="0" value="0"
-          class="barang" data-harga="12000">
+        <input
+          type="number"
+          min="0"
+          value="0"
+          class="barang"
+          data-harga="12000">
       </div>
 
       <div class="item">
         <span class="kode">KP</span>
         <span class="harga">Rp13.000</span>
-        <input type="number" min="0" value="0"
-          class="barang" data-harga="13000">
+        <input
+          type="number"
+          min="0"
+          value="0"
+          class="barang"
+          data-harga="13000">
       </div>
 
       <div class="item">
         <span class="kode">SC</span>
         <span class="harga">Rp14.000</span>
-        <input type="number" min="0" value="0"
-          class="barang" data-harga="14000">
+        <input
+          type="number"
+          min="0"
+          value="0"
+          class="barang"
+          data-harga="14000">
       </div>
 
       <div class="total">
@@ -697,7 +743,9 @@
 
       <div class="total">
         <span>TOTAL PEMBAYARAN</span>
-        <span class="total-harga" id="totalPembayaran">
+        <span
+          class="total-harga"
+          id="totalPembayaran">
           Rp0
         </span>
       </div>
@@ -1249,10 +1297,6 @@
       ).textContent =
         rekap.judul;
 
-      /*
-       * LANGSUNG AMBIL TANGGAL REKAP
-       */
-
       tanggalDipilih =
         new Date(
           rekap.tanggal +
@@ -1478,11 +1522,6 @@
             );
         }
       }
-
-      /*
-       * LANGSUNG TAMPILKAN TANGGAL
-       * TANPA MEMUAT...
-       */
 
       tampilkanTanggal();
 
